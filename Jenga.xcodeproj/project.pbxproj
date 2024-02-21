@@ -7,20 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD5659EA2B861A5500DBD536 /* JengaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5659E92B861A5500DBD536 /* JengaViewModel.swift */; };
+		BD5659EE2B86227A00DBD536 /* PlacementGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5659ED2B86227A00DBD536 /* PlacementGestureModifier.swift */; };
+		BD5659F02B86284B00DBD536 /* EntityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5659EF2B86284B00DBD536 /* EntityHelper.swift */; };
 		BD79A7E22B834FC50006E650 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = BD79A7E12B834FC50006E650 /* RealityKitContent */; };
 		BD79A7E42B834FC50006E650 /* JengaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79A7E32B834FC50006E650 /* JengaApp.swift */; };
-		BD79A7E62B834FC50006E650 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79A7E52B834FC50006E650 /* ContentView.swift */; };
-		BD79A7E82B834FC50006E650 /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79A7E72B834FC50006E650 /* ImmersiveView.swift */; };
+		BD79A7E62B834FC50006E650 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79A7E52B834FC50006E650 /* MainMenu.swift */; };
+		BD79A7E82B834FC50006E650 /* JengaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79A7E72B834FC50006E650 /* JengaView.swift */; };
 		BD79A7EA2B834FC60006E650 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD79A7E92B834FC60006E650 /* Assets.xcassets */; };
 		BD79A7ED2B834FC60006E650 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD79A7EC2B834FC60006E650 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD5659E92B861A5500DBD536 /* JengaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JengaViewModel.swift; sourceTree = "<group>"; };
+		BD5659ED2B86227A00DBD536 /* PlacementGestureModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacementGestureModifier.swift; sourceTree = "<group>"; };
+		BD5659EF2B86284B00DBD536 /* EntityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityHelper.swift; sourceTree = "<group>"; };
 		BD79A7DC2B834FC50006E650 /* Jenga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jenga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD79A7E02B834FC50006E650 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		BD79A7E32B834FC50006E650 /* JengaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JengaApp.swift; sourceTree = "<group>"; };
-		BD79A7E52B834FC50006E650 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BD79A7E72B834FC50006E650 /* ImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveView.swift; sourceTree = "<group>"; };
+		BD79A7E52B834FC50006E650 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		BD79A7E72B834FC50006E650 /* JengaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JengaView.swift; sourceTree = "<group>"; };
 		BD79A7E92B834FC60006E650 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD79A7EC2B834FC60006E650 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BD79A7EE2B834FC60006E650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -38,6 +44,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD5659E82B861A3300DBD536 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BD5659E92B861A5500DBD536 /* JengaViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BD5659EB2B86226200DBD536 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				BD5659F12B86285100DBD536 /* Helper */,
+				BD5659EC2B86226900DBD536 /* Modifier */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		BD5659EC2B86226900DBD536 /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				BD5659ED2B86227A00DBD536 /* PlacementGestureModifier.swift */,
+			);
+			path = Modifier;
+			sourceTree = "<group>";
+		};
+		BD5659F12B86285100DBD536 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				BD5659EF2B86284B00DBD536 /* EntityHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		BD79A7D32B834FC50006E650 = {
 			isa = PBXGroup;
 			children = (
@@ -58,9 +97,12 @@
 		BD79A7DE2B834FC50006E650 /* Jenga */ = {
 			isa = PBXGroup;
 			children = (
+				BD5659EB2B86226200DBD536 /* Util */,
+				BD5659E82B861A3300DBD536 /* ViewModel */,
+				BD79A7F42B834FD40006E650 /* SharePlay */,
 				BD79A7E32B834FC50006E650 /* JengaApp.swift */,
-				BD79A7E52B834FC50006E650 /* ContentView.swift */,
-				BD79A7E72B834FC50006E650 /* ImmersiveView.swift */,
+				BD79A7E52B834FC50006E650 /* MainMenu.swift */,
+				BD79A7E72B834FC50006E650 /* JengaView.swift */,
 				BD79A7E92B834FC60006E650 /* Assets.xcassets */,
 				BD79A7EE2B834FC60006E650 /* Info.plist */,
 				BD79A7EB2B834FC60006E650 /* Preview Content */,
@@ -82,6 +124,13 @@
 				BD79A7EC2B834FC60006E650 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BD79A7F42B834FD40006E650 /* SharePlay */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SharePlay;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,9 +206,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD79A7E62B834FC50006E650 /* ContentView.swift in Sources */,
+				BD5659EA2B861A5500DBD536 /* JengaViewModel.swift in Sources */,
+				BD79A7E62B834FC50006E650 /* MainMenu.swift in Sources */,
 				BD79A7E42B834FC50006E650 /* JengaApp.swift in Sources */,
-				BD79A7E82B834FC50006E650 /* ImmersiveView.swift in Sources */,
+				BD79A7E82B834FC50006E650 /* JengaView.swift in Sources */,
+				BD5659F02B86284B00DBD536 /* EntityHelper.swift in Sources */,
+				BD5659EE2B86227A00DBD536 /* PlacementGestureModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

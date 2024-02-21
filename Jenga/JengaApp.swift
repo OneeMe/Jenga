@@ -9,11 +9,12 @@ import SwiftUI
 struct JengaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-        }.windowStyle(.volumetric)
+            MainMenu()
+        }
+        .defaultSize(.init(width: 500, height: 400))
 
-        ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView()
+        ImmersiveSpace(id: "JengaView") {
+            JengaView()
         }
     }
 }
