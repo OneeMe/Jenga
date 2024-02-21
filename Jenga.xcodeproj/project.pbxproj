@@ -16,6 +16,8 @@
 		BD79A7E82B834FC50006E650 /* JengaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79A7E72B834FC50006E650 /* JengaView.swift */; };
 		BD79A7EA2B834FC60006E650 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD79A7E92B834FC60006E650 /* Assets.xcassets */; };
 		BD79A7ED2B834FC60006E650 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD79A7EC2B834FC60006E650 /* Preview Assets.xcassets */; };
+		BDDD114A2B86350A00AA5A85 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDD11492B86350A00AA5A85 /* AppState.swift */; };
+		BDDD114C2B86368600AA5A85 /* JengaView+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDD114B2B86368600AA5A85 /* JengaView+Drag.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		BD79A7E92B834FC60006E650 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD79A7EC2B834FC60006E650 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BD79A7EE2B834FC60006E650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDDD11492B86350A00AA5A85 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		BDDD114B2B86368600AA5A85 /* JengaView+Drag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JengaView+Drag.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +105,10 @@
 				BD5659E82B861A3300DBD536 /* ViewModel */,
 				BD79A7F42B834FD40006E650 /* SharePlay */,
 				BD79A7E32B834FC50006E650 /* JengaApp.swift */,
+				BDDD11492B86350A00AA5A85 /* AppState.swift */,
 				BD79A7E52B834FC50006E650 /* MainMenu.swift */,
 				BD79A7E72B834FC50006E650 /* JengaView.swift */,
+				BDDD114B2B86368600AA5A85 /* JengaView+Drag.swift */,
 				BD79A7E92B834FC60006E650 /* Assets.xcassets */,
 				BD79A7EE2B834FC60006E650 /* Info.plist */,
 				BD79A7EB2B834FC60006E650 /* Preview Content */,
@@ -206,8 +212,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDDD114C2B86368600AA5A85 /* JengaView+Drag.swift in Sources */,
 				BD5659EA2B861A5500DBD536 /* JengaViewModel.swift in Sources */,
 				BD79A7E62B834FC50006E650 /* MainMenu.swift in Sources */,
+				BDDD114A2B86350A00AA5A85 /* AppState.swift in Sources */,
 				BD79A7E42B834FC50006E650 /* JengaApp.swift in Sources */,
 				BD79A7E82B834FC50006E650 /* JengaView.swift in Sources */,
 				BD5659F02B86284B00DBD536 /* EntityHelper.swift in Sources */,

@@ -10,6 +10,7 @@ import SwiftUI
 struct JengaView: View {
     @Environment(\.dismissWindow) private var dismissWindow
     @Environment(\.openWindow) private var openWindow
+    @Environment(AppState.self) var appState
 
     @State private var subs: [EventSubscription] = []
     @State private var blocks: [Entity] = []
@@ -76,6 +77,18 @@ struct JengaView: View {
                 .frame(width: 0, height: 0)
             }
         }
+        .gesture(DragGesture(minimumDistance: 1)
+            .targetedToAnyEntity()
+            .onChanged { value in
+                guard appState.phase == .buildingTrack || appState.phase == .placingStartPiece
+                        || appState.phase == .draggingStartPiece else { return }
+                handleDrag(value, ended: false)
+            }
+            .onEnded { value in
+                guard appState.phase == .buildingTrack || appState.phase == .placingStartPiece
+                        || appState.phase == .draggingStartPiece else { return }
+                handleDrag(value, ended: true)
+            })
     }
 }
 

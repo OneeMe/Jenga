@@ -47,7 +47,7 @@ struct MainMenu: View {
                             immersiveSpaceIsShown = false
                         }
                     }, label: {
-                        Label("Quit", systemImage: "play.fill")
+                        Label("Quit", systemImage: "xmark.circle.fill")
                     })
                 }
             }
