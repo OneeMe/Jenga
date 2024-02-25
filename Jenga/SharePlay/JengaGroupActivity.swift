@@ -23,10 +23,10 @@ struct BlockPosition: Codable {
     let positions: [Pose3D]
 }
 
-class ShareModel {
+class ShareModel: ObservableObject {
     let activity = JengaGroupActivity(position: 0)
     
-    @Published var groupSession: GroupSession<JengaGroupActivity>?
+    var groupSession: GroupSession<JengaGroupActivity>?
     @Published var blockPositions = [Pose3D]()
     
     var messenger: GroupSessionMessenger?

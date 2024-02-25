@@ -18,7 +18,7 @@ struct JengaView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     @StateObject var model: JengaViewModel = .init()
-    let shareModel: ShareModel = .init()
+    @StateObject var shareModel: ShareModel = .init()
 
     var body: some View {
         VStack(spacing: 0) {
@@ -79,7 +79,21 @@ struct JengaView: View {
         .task {
             await shareModel.prepareSession()
         }
+        .onChange(of: shareModel.blockPositions) { _, positions in
+            for (index, position) in positions.enumerated() {
+                blocks[index].transform = Transform(matrix: convertDouble4x4ToFloat4x4(position.matrix))
+            }
+        }
     }
+}
+                    
+func convertDouble4x4ToFloat4x4(_ matrix: simd_double4x4) -> float4x4 {
+    return float4x4(
+        float4(Float(matrix[0,0]), Float(matrix[0,1]), Float(matrix[0,2]), Float(matrix[0,3])),
+        float4(Float(matrix[1,0]), Float(matrix[1,1]), Float(matrix[1,2]), Float(matrix[1,3])),
+        float4(Float(matrix[2,0]), Float(matrix[2,1]), Float(matrix[2,2]), Float(matrix[2,3])),
+        float4(Float(matrix[3,0]), Float(matrix[3,1]), Float(matrix[3,2]), Float(matrix[3,3]))
+    )
 }
 
 @MainActor func createTower(_ model: JengaViewModel) -> [ModelEntity] {
