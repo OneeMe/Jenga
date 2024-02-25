@@ -3,8 +3,13 @@
     "\/RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/GridMaterial.usda" : "95052448-183C-40B5-9E52-3717AF9B48FA",
     "\/RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Immersive.usda" : "65F6F990-A780-4474-B78B-572E0E4E273D",
     "\/RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Scene.usda" : "0A9B4653-B11E-4D6A-850E-C6FCB621626C",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Block.usda" : "A109AB8B-162A-4EF9-864C-8A32DC8EA829",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/BlockB.usda" : "4ECF6C6F-F6DA-4BE5-AA09-4E142B0DE457",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/GridMaterial.usda" : "A21C1E11-ABB0-4972-8159-55AD3A9AA5B3",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Immersive.usda" : "1D572CEB-057A-41C3-B575-04C37501A3C0",
-    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Scene.usda" : "D66134B1-3681-4A8E-AFE5-29F257229F3B"
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Materials\/WoodPlank.usdz" : "1C2691C3-F216-4634-8D19-138143D81E60",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Scene.usda" : "D66134B1-3681-4A8E-AFE5-29F257229F3B",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Tower.usda" : "4E4949BD-519D-45CE-AA6B-3A3819F185CA",
+    "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/WoodPlank.usdz" : "D815E74F-3E57-42F6-B11F-CBB4CC4F92E6"
   }
 }

@@ -1,0 +1,1127 @@
+#usda 1.0
+(
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+reorder rootPrims = ["Root", "GridMaterial"]
+
+def Xform "Root"
+{
+    reorder nameChildren = ["GridMaterial", "Level1", "Level2"]
+    def "GridMaterial" (
+        active = true
+        references = @Materials/GridMaterial.usda@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Xform "Level1" (
+        active = true
+    )
+    {
+        reorder nameChildren = ["BlockB", "Block", "Block_1", "Block_2"]
+        def "Block" (
+            active = true
+            references = @Block.usda@
+        )
+        {
+            reorder nameChildren = ["BlockB", "Block"]
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0.00216683, 0.009324592, -0.00042141136)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "Block"
+            {
+                over "Wood_Plank"
+                {
+                    color3f inputs:Basecolor_Tint (
+                        customData = {
+                            dictionary realitykit = {
+                                float2 positionInSubgraph = (-56.812614, 67.17455)
+                                float2 sizeInSubgraph = (160.5, 53)
+                                int stackingOrderInSubgraph = 2352
+                            }
+                        }
+                    )
+                    float2 inputs:UV_Scale (
+                        customData = {
+                            dictionary realitykit = {
+                                float2 positionInSubgraph = (-725.2588, 351.55255)
+                                float2 sizeInSubgraph = (138.5, 53)
+                                int stackingOrderInSubgraph = 2272
+                            }
+                        }
+                    )
+                    float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+
+                    over "Dot"
+                    {
+                        float2 ui:nodegraph:node:size = (44, 18)
+                    }
+
+                    over "multiply"
+                    {
+                        float2 ui:nodegraph:node:size = (60, 36)
+                    }
+
+                    over "add"
+                    {
+                        float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    }
+
+                    over "PreviewSurface"
+                    {
+                        float2 ui:nodegraph:node:size = (148.5, 199)
+                    }
+
+                    over "Mix"
+                    {
+                        float2 ui:nodegraph:node:size = (109, 145)
+                    }
+
+                    over "Swizzle"
+                    {
+                        float2 ui:nodegraph:node:size = (133.5, 40)
+                    }
+
+                    over "Swizzle_1"
+                    {
+                        float2 ui:nodegraph:node:size = (145.5, 53)
+                    }
+
+                    over "Multiply_1"
+                    {
+                        float2 ui:nodegraph:node:size = (60, 36)
+                    }
+
+                    over "BaseColor"
+                    {
+                        float2 ui:nodegraph:node:size = (158.5, 235)
+                    }
+
+                    over "Roughness"
+                    {
+                        float2 ui:nodegraph:node:size = (158.5, 235)
+                    }
+
+                    over "Metallic"
+                    {
+                        float2 ui:nodegraph:node:size = (158.5, 235)
+                    }
+
+                    over "Normal"
+                    {
+                        float2 ui:nodegraph:node:size = (158.5, 235)
+                    }
+                }
+            }
+        }
+
+        def "Block_2" (
+            active = true
+            references = @Block.usda@
+        )
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0.0021961895, 0.009324595, -0.010397197)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "Block"
+            {
+                over "Wood_Plank"
+                {
+                    token outputs:mtlx:surface.connect = </Root/Level1/Block_2/Block/Wood_Plank/PreviewSurface.outputs:out>
+
+                    over "add"
+                    {
+                        float3 inputs:in1.connect = </Root/Level1/Block_2/Block/Wood_Plank/multiply.outputs:out>
+                    }
+
+                    over "Swizzle_1"
+                    {
+                        color4f inputs:in.connect = </Root/Level1/Block_2/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Swizzle"
+                    {
+                        color4f inputs:in.connect = </Root/Level1/Block_2/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Multiply_1"
+                    {
+                        color3f inputs:in1.connect = </Root/Level1/Block_2/Block/Wood_Plank.inputs:Basecolor_Tint>
+                        color3f inputs:in2.connect = </Root/Level1/Block_2/Block/Wood_Plank/Swizzle_1.outputs:out>
+                    }
+
+                    over "Mix"
+                    {
+                        color3f inputs:bg.connect = </Root/Level1/Block_2/Block/Wood_Plank/Swizzle_1.outputs:out>
+                        color3f inputs:fg.connect = </Root/Level1/Block_2/Block/Wood_Plank/Multiply_1.outputs:out>
+                        float inputs:mix.connect = </Root/Level1/Block_2/Block/Wood_Plank/Swizzle.outputs:out>
+                    }
+
+                    over "Dot"
+                    {
+                        float2 inputs:in.connect = </Root/Level1/Block_2/Block/Wood_Plank.inputs:UV_Scale>
+                    }
+
+                    over "Metallic"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1/Block_2/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "PreviewSurface"
+                    {
+                        color3f inputs:diffuseColor.connect = </Root/Level1/Block_2/Block/Wood_Plank/Mix.outputs:out>
+                        float inputs:metallic.connect = </Root/Level1/Block_2/Block/Wood_Plank/Metallic.outputs:out>
+                        float3 inputs:normal.connect = </Root/Level1/Block_2/Block/Wood_Plank/add.outputs:out>
+                        float inputs:roughness.connect = </Root/Level1/Block_2/Block/Wood_Plank/Roughness.outputs:out>
+                    }
+
+                    over "Normal"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1/Block_2/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "BaseColor"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1/Block_2/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "Roughness"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1/Block_2/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "multiply"
+                    {
+                        float3 inputs:in1.connect = </Root/Level1/Block_2/Block/Wood_Plank/Normal.outputs:out>
+                    }
+                }
+            }
+        }
+
+        def "BlockB" (
+            active = true
+            prepend references = @BlockB.usda@
+        )
+        {
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0.0022080778, 0.009293099, -0.0053959596)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "Level2" (
+        active = true
+    )
+    {
+        reorder nameChildren = ["BlockB", "Block_3", "Block_5", "Block_4"]
+        def "Block_3" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (0, -1.5707963, 0)
+            }
+            references = @Block.usda@
+        )
+        {
+            quatf xformOp:orient = (0.70535606, 0, -0.7088532, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (-0.0028801954, 0.012091746, -0.005690052)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "Block"
+            {
+                over "Wood_Plank"
+                {
+                    token outputs:mtlx:surface.connect = </Root/Level2/Block_3/Block/Wood_Plank/PreviewSurface.outputs:out>
+
+                    over "add"
+                    {
+                        float3 inputs:in1.connect = </Root/Level2/Block_3/Block/Wood_Plank/multiply.outputs:out>
+                    }
+
+                    over "Swizzle_1"
+                    {
+                        color4f inputs:in.connect = </Root/Level2/Block_3/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Swizzle"
+                    {
+                        color4f inputs:in.connect = </Root/Level2/Block_3/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Multiply_1"
+                    {
+                        color3f inputs:in1.connect = </Root/Level2/Block_3/Block/Wood_Plank.inputs:Basecolor_Tint>
+                        color3f inputs:in2.connect = </Root/Level2/Block_3/Block/Wood_Plank/Swizzle_1.outputs:out>
+                    }
+
+                    over "Mix"
+                    {
+                        color3f inputs:bg.connect = </Root/Level2/Block_3/Block/Wood_Plank/Swizzle_1.outputs:out>
+                        color3f inputs:fg.connect = </Root/Level2/Block_3/Block/Wood_Plank/Multiply_1.outputs:out>
+                        float inputs:mix.connect = </Root/Level2/Block_3/Block/Wood_Plank/Swizzle.outputs:out>
+                    }
+
+                    over "Dot"
+                    {
+                        float2 inputs:in.connect = </Root/Level2/Block_3/Block/Wood_Plank.inputs:UV_Scale>
+                    }
+
+                    over "Metallic"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2/Block_3/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "PreviewSurface"
+                    {
+                        color3f inputs:diffuseColor.connect = </Root/Level2/Block_3/Block/Wood_Plank/Mix.outputs:out>
+                        float inputs:metallic.connect = </Root/Level2/Block_3/Block/Wood_Plank/Metallic.outputs:out>
+                        float3 inputs:normal.connect = </Root/Level2/Block_3/Block/Wood_Plank/add.outputs:out>
+                        float inputs:roughness.connect = </Root/Level2/Block_3/Block/Wood_Plank/Roughness.outputs:out>
+                    }
+
+                    over "Normal"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2/Block_3/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "BaseColor"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2/Block_3/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "Roughness"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2/Block_3/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "multiply"
+                    {
+                        float3 inputs:in1.connect = </Root/Level2/Block_3/Block/Wood_Plank/Normal.outputs:out>
+                    }
+                }
+            }
+        }
+
+        def "Block_5" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (0, -1.5707963, 0)
+            }
+            references = @Block.usda@
+        )
+        {
+            quatf xformOp:orient = (0.70535606, 0, -0.7088532, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0.0070112944, 0.012197747, -0.005641137)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "Block"
+            {
+                over "Wood_Plank"
+                {
+                    token outputs:mtlx:surface.connect = </Root/Level2/Block_5/Block/Wood_Plank/PreviewSurface.outputs:out>
+
+                    over "add"
+                    {
+                        float3 inputs:in1.connect = </Root/Level2/Block_5/Block/Wood_Plank/multiply.outputs:out>
+                    }
+
+                    over "Swizzle_1"
+                    {
+                        color4f inputs:in.connect = </Root/Level2/Block_5/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Swizzle"
+                    {
+                        color4f inputs:in.connect = </Root/Level2/Block_5/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Multiply_1"
+                    {
+                        color3f inputs:in1.connect = </Root/Level2/Block_5/Block/Wood_Plank.inputs:Basecolor_Tint>
+                        color3f inputs:in2.connect = </Root/Level2/Block_5/Block/Wood_Plank/Swizzle_1.outputs:out>
+                    }
+
+                    over "Mix"
+                    {
+                        color3f inputs:bg.connect = </Root/Level2/Block_5/Block/Wood_Plank/Swizzle_1.outputs:out>
+                        color3f inputs:fg.connect = </Root/Level2/Block_5/Block/Wood_Plank/Multiply_1.outputs:out>
+                        float inputs:mix.connect = </Root/Level2/Block_5/Block/Wood_Plank/Swizzle.outputs:out>
+                    }
+
+                    over "Dot"
+                    {
+                        float2 inputs:in.connect = </Root/Level2/Block_5/Block/Wood_Plank.inputs:UV_Scale>
+                    }
+
+                    over "Metallic"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2/Block_5/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "PreviewSurface"
+                    {
+                        color3f inputs:diffuseColor.connect = </Root/Level2/Block_5/Block/Wood_Plank/Mix.outputs:out>
+                        float inputs:metallic.connect = </Root/Level2/Block_5/Block/Wood_Plank/Metallic.outputs:out>
+                        float3 inputs:normal.connect = </Root/Level2/Block_5/Block/Wood_Plank/add.outputs:out>
+                        float inputs:roughness.connect = </Root/Level2/Block_5/Block/Wood_Plank/Roughness.outputs:out>
+                    }
+
+                    over "Normal"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2/Block_5/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "BaseColor"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2/Block_5/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "Roughness"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2/Block_5/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "multiply"
+                    {
+                        float3 inputs:in1.connect = </Root/Level2/Block_5/Block/Wood_Plank/Normal.outputs:out>
+                    }
+                }
+            }
+        }
+
+        def "BlockB" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (0, -1.5707963, 0)
+            }
+            prepend references = @BlockB.usda@
+        )
+        {
+            quatf xformOp:orient = (0.7088649, 0, -0.7053444, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0.00210269, 0.012014626, -0.005607611)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "Level1_1" (
+        active = true
+    )
+    {
+        reorder nameChildren = ["BlockB", "Block", "Block_1", "Block_2"]
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0.0062616114, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def "Block" (
+            active = true
+            references = @Block.usda@
+        )
+        {
+            reorder nameChildren = ["BlockB", "Block"]
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0.00216683, 0.009324592, -0.00042141136)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "Block"
+            {
+                over "Wood_Plank"
+                {
+                    color3f inputs:Basecolor_Tint (
+                        customData = {
+                            dictionary realitykit = {
+                                float2 positionInSubgraph = (-56.812614, 67.17455)
+                                float2 sizeInSubgraph = (160.5, 53)
+                                int stackingOrderInSubgraph = 2352
+                            }
+                        }
+                    )
+                    float2 inputs:UV_Scale (
+                        customData = {
+                            dictionary realitykit = {
+                                float2 positionInSubgraph = (-725.2588, 351.55255)
+                                float2 sizeInSubgraph = (138.5, 53)
+                                int stackingOrderInSubgraph = 2272
+                            }
+                        }
+                    )
+                    token outputs:mtlx:surface.connect = </Root/Level1_1/Block/Block/Wood_Plank/PreviewSurface.outputs:out>
+                    float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+
+                    over "Dot"
+                    {
+                        float2 inputs:in.connect = </Root/Level1_1/Block/Block/Wood_Plank.inputs:UV_Scale>
+                        float2 ui:nodegraph:node:size = (44, 18)
+                    }
+
+                    over "multiply"
+                    {
+                        float3 inputs:in1.connect = </Root/Level1_1/Block/Block/Wood_Plank/Normal.outputs:out>
+                        float2 ui:nodegraph:node:size = (60, 36)
+                    }
+
+                    over "add"
+                    {
+                        float3 inputs:in1.connect = </Root/Level1_1/Block/Block/Wood_Plank/multiply.outputs:out>
+                        float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    }
+
+                    over "PreviewSurface"
+                    {
+                        color3f inputs:diffuseColor.connect = </Root/Level1_1/Block/Block/Wood_Plank/Mix.outputs:out>
+                        float inputs:metallic.connect = </Root/Level1_1/Block/Block/Wood_Plank/Metallic.outputs:out>
+                        float3 inputs:normal.connect = </Root/Level1_1/Block/Block/Wood_Plank/add.outputs:out>
+                        float inputs:roughness.connect = </Root/Level1_1/Block/Block/Wood_Plank/Roughness.outputs:out>
+                        float2 ui:nodegraph:node:size = (148.5, 199)
+                    }
+
+                    over "Mix"
+                    {
+                        color3f inputs:bg.connect = </Root/Level1_1/Block/Block/Wood_Plank/Swizzle_1.outputs:out>
+                        color3f inputs:fg.connect = </Root/Level1_1/Block/Block/Wood_Plank/Multiply_1.outputs:out>
+                        float inputs:mix.connect = </Root/Level1_1/Block/Block/Wood_Plank/Swizzle.outputs:out>
+                        float2 ui:nodegraph:node:size = (109, 145)
+                    }
+
+                    over "Swizzle"
+                    {
+                        color4f inputs:in.connect = </Root/Level1_1/Block/Block/Wood_Plank/BaseColor.outputs:out>
+                        float2 ui:nodegraph:node:size = (133.5, 40)
+                    }
+
+                    over "Swizzle_1"
+                    {
+                        color4f inputs:in.connect = </Root/Level1_1/Block/Block/Wood_Plank/BaseColor.outputs:out>
+                        float2 ui:nodegraph:node:size = (145.5, 53)
+                    }
+
+                    over "Multiply_1"
+                    {
+                        color3f inputs:in1.connect = </Root/Level1_1/Block/Block/Wood_Plank.inputs:Basecolor_Tint>
+                        color3f inputs:in2.connect = </Root/Level1_1/Block/Block/Wood_Plank/Swizzle_1.outputs:out>
+                        float2 ui:nodegraph:node:size = (60, 36)
+                    }
+
+                    over "BaseColor"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1_1/Block/Block/Wood_Plank/Dot.outputs:out>
+                        float2 ui:nodegraph:node:size = (158.5, 235)
+                    }
+
+                    over "Roughness"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1_1/Block/Block/Wood_Plank/Dot.outputs:out>
+                        float2 ui:nodegraph:node:size = (158.5, 235)
+                    }
+
+                    over "Metallic"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1_1/Block/Block/Wood_Plank/Dot.outputs:out>
+                        float2 ui:nodegraph:node:size = (158.5, 235)
+                    }
+
+                    over "Normal"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1_1/Block/Block/Wood_Plank/Dot.outputs:out>
+                        float2 ui:nodegraph:node:size = (158.5, 235)
+                    }
+                }
+            }
+        }
+
+        def "Block_2" (
+            active = true
+            references = @Block.usda@
+        )
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0.0021961895, 0.009324595, -0.010397197)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "Block"
+            {
+                over "Wood_Plank"
+                {
+                    token outputs:mtlx:surface.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/PreviewSurface.outputs:out>
+
+                    over "add"
+                    {
+                        float3 inputs:in1.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/multiply.outputs:out>
+                    }
+
+                    over "Swizzle_1"
+                    {
+                        color4f inputs:in.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Swizzle"
+                    {
+                        color4f inputs:in.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Multiply_1"
+                    {
+                        color3f inputs:in1.connect = </Root/Level1_1/Block_2/Block/Wood_Plank.inputs:Basecolor_Tint>
+                        color3f inputs:in2.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Swizzle_1.outputs:out>
+                    }
+
+                    over "Mix"
+                    {
+                        color3f inputs:bg.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Swizzle_1.outputs:out>
+                        color3f inputs:fg.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Multiply_1.outputs:out>
+                        float inputs:mix.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Swizzle.outputs:out>
+                    }
+
+                    over "Dot"
+                    {
+                        float2 inputs:in.connect = </Root/Level1_1/Block_2/Block/Wood_Plank.inputs:UV_Scale>
+                    }
+
+                    over "Metallic"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "PreviewSurface"
+                    {
+                        color3f inputs:diffuseColor.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Mix.outputs:out>
+                        float inputs:metallic.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Metallic.outputs:out>
+                        float3 inputs:normal.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/add.outputs:out>
+                        float inputs:roughness.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Roughness.outputs:out>
+                    }
+
+                    over "Normal"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "BaseColor"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "Roughness"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "multiply"
+                    {
+                        float3 inputs:in1.connect = </Root/Level1_1/Block_2/Block/Wood_Plank/Normal.outputs:out>
+                    }
+                }
+            }
+        }
+
+        def "BlockB" (
+            active = true
+            prepend references = @BlockB.usda@
+        )
+        {
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0.0022080778, 0.009293099, -0.0053959596)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "Block"
+            {
+                token outputs:mtlx:surface.connect = </Root/Level1_1/BlockB/Block/PreviewSurface.outputs:out>
+
+                over "add"
+                {
+                    float3 inputs:in1.connect = </Root/Level1_1/BlockB/Block/multiply.outputs:out>
+                }
+
+                over "Swizzle_1"
+                {
+                    color4f inputs:in.connect = </Root/Level1_1/BlockB/Block/BaseColor.outputs:out>
+                }
+
+                over "Swizzle"
+                {
+                    color4f inputs:in.connect = </Root/Level1_1/BlockB/Block/BaseColor.outputs:out>
+                }
+
+                over "Multiply_1"
+                {
+                    color3f inputs:in1.connect = </Root/Level1_1/BlockB/Block.inputs:Basecolor_Tint>
+                    color3f inputs:in2.connect = </Root/Level1_1/BlockB/Block/Swizzle_1.outputs:out>
+                }
+
+                over "Mix"
+                {
+                    color3f inputs:bg.connect = </Root/Level1_1/BlockB/Block/Swizzle_1.outputs:out>
+                    color3f inputs:fg.connect = </Root/Level1_1/BlockB/Block/Multiply_1.outputs:out>
+                    float inputs:mix.connect = </Root/Level1_1/BlockB/Block/Swizzle.outputs:out>
+                }
+
+                over "Dot"
+                {
+                    float2 inputs:in.connect = </Root/Level1_1/BlockB/Block.inputs:UV_Scale>
+                }
+
+                over "Metallic"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level1_1/BlockB/Block/Dot.outputs:out>
+                }
+
+                over "PreviewSurface"
+                {
+                    color3f inputs:diffuseColor.connect = </Root/Level1_1/BlockB/Block/Mix.outputs:out>
+                    float inputs:metallic.connect = </Root/Level1_1/BlockB/Block/Metallic.outputs:out>
+                    float3 inputs:normal.connect = </Root/Level1_1/BlockB/Block/add.outputs:out>
+                    float inputs:roughness.connect = </Root/Level1_1/BlockB/Block/Roughness.outputs:out>
+                }
+
+                over "Normal"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level1_1/BlockB/Block/Dot.outputs:out>
+                }
+
+                over "BaseColor"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level1_1/BlockB/Block/Dot.outputs:out>
+                }
+
+                over "Roughness"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level1_1/BlockB/Block/Dot.outputs:out>
+                }
+
+                over "multiply"
+                {
+                    float3 inputs:in1.connect = </Root/Level1_1/BlockB/Block/Normal.outputs:out>
+                }
+            }
+
+            over "Wood_Plank"
+            {
+                token outputs:mtlx:surface.connect = </Root/Level1_1/BlockB/Wood_Plank/PreviewSurface.outputs:out>
+
+                over "add"
+                {
+                    float3 inputs:in1.connect = </Root/Level1_1/BlockB/Wood_Plank/multiply.outputs:out>
+                }
+
+                over "Swizzle_1"
+                {
+                    color4f inputs:in.connect = </Root/Level1_1/BlockB/Wood_Plank/BaseColor.outputs:out>
+                }
+
+                over "Swizzle"
+                {
+                    color4f inputs:in.connect = </Root/Level1_1/BlockB/Wood_Plank/BaseColor.outputs:out>
+                }
+
+                over "Multiply_1"
+                {
+                    color3f inputs:in1.connect = </Root/Level1_1/BlockB/Wood_Plank.inputs:Basecolor_Tint>
+                    color3f inputs:in2.connect = </Root/Level1_1/BlockB/Wood_Plank/Swizzle_1.outputs:out>
+                }
+
+                over "Mix"
+                {
+                    color3f inputs:bg.connect = </Root/Level1_1/BlockB/Wood_Plank/Swizzle_1.outputs:out>
+                    color3f inputs:fg.connect = </Root/Level1_1/BlockB/Wood_Plank/Multiply_1.outputs:out>
+                    float inputs:mix.connect = </Root/Level1_1/BlockB/Wood_Plank/Swizzle.outputs:out>
+                }
+
+                over "Dot"
+                {
+                    float2 inputs:in.connect = </Root/Level1_1/BlockB/Wood_Plank.inputs:UV_Scale>
+                }
+
+                over "Metallic"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level1_1/BlockB/Wood_Plank/Dot.outputs:out>
+                }
+
+                over "PreviewSurface"
+                {
+                    color3f inputs:diffuseColor.connect = </Root/Level1_1/BlockB/Wood_Plank/Mix.outputs:out>
+                    float inputs:metallic.connect = </Root/Level1_1/BlockB/Wood_Plank/Metallic.outputs:out>
+                    float3 inputs:normal.connect = </Root/Level1_1/BlockB/Wood_Plank/add.outputs:out>
+                    float inputs:roughness.connect = </Root/Level1_1/BlockB/Wood_Plank/Roughness.outputs:out>
+                }
+
+                over "Normal"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level1_1/BlockB/Wood_Plank/Dot.outputs:out>
+                }
+
+                over "BaseColor"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level1_1/BlockB/Wood_Plank/Dot.outputs:out>
+                }
+
+                over "Roughness"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level1_1/BlockB/Wood_Plank/Dot.outputs:out>
+                }
+
+                over "multiply"
+                {
+                    float3 inputs:in1.connect = </Root/Level1_1/BlockB/Wood_Plank/Normal.outputs:out>
+                }
+            }
+        }
+    }
+
+    def Xform "Level2_1" (
+        active = true
+    )
+    {
+        reorder nameChildren = ["BlockB", "Block_3", "Block_5", "Block_4"]
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0.0062847584, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def "Block_3" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (0, -1.5707963, 0)
+            }
+            references = @Block.usda@
+        )
+        {
+            quatf xformOp:orient = (0.70535606, 0, -0.7088532, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (-0.0028801954, 0.012091746, -0.005690052)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "Block"
+            {
+                over "Wood_Plank"
+                {
+                    token outputs:mtlx:surface.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/PreviewSurface.outputs:out>
+
+                    over "add"
+                    {
+                        float3 inputs:in1.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/multiply.outputs:out>
+                    }
+
+                    over "Swizzle_1"
+                    {
+                        color4f inputs:in.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Swizzle"
+                    {
+                        color4f inputs:in.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Multiply_1"
+                    {
+                        color3f inputs:in1.connect = </Root/Level2_1/Block_3/Block/Wood_Plank.inputs:Basecolor_Tint>
+                        color3f inputs:in2.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Swizzle_1.outputs:out>
+                    }
+
+                    over "Mix"
+                    {
+                        color3f inputs:bg.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Swizzle_1.outputs:out>
+                        color3f inputs:fg.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Multiply_1.outputs:out>
+                        float inputs:mix.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Swizzle.outputs:out>
+                    }
+
+                    over "Dot"
+                    {
+                        float2 inputs:in.connect = </Root/Level2_1/Block_3/Block/Wood_Plank.inputs:UV_Scale>
+                    }
+
+                    over "Metallic"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "PreviewSurface"
+                    {
+                        color3f inputs:diffuseColor.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Mix.outputs:out>
+                        float inputs:metallic.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Metallic.outputs:out>
+                        float3 inputs:normal.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/add.outputs:out>
+                        float inputs:roughness.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Roughness.outputs:out>
+                    }
+
+                    over "Normal"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "BaseColor"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "Roughness"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "multiply"
+                    {
+                        float3 inputs:in1.connect = </Root/Level2_1/Block_3/Block/Wood_Plank/Normal.outputs:out>
+                    }
+                }
+            }
+        }
+
+        def "Block_5" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (0, -1.5707963, 0)
+            }
+            references = @Block.usda@
+        )
+        {
+            quatf xformOp:orient = (0.70535606, 0, -0.7088532, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0.0070112944, 0.012197747, -0.005641137)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "Block"
+            {
+                over "Wood_Plank"
+                {
+                    token outputs:mtlx:surface.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/PreviewSurface.outputs:out>
+
+                    over "add"
+                    {
+                        float3 inputs:in1.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/multiply.outputs:out>
+                    }
+
+                    over "Swizzle_1"
+                    {
+                        color4f inputs:in.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Swizzle"
+                    {
+                        color4f inputs:in.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/BaseColor.outputs:out>
+                    }
+
+                    over "Multiply_1"
+                    {
+                        color3f inputs:in1.connect = </Root/Level2_1/Block_5/Block/Wood_Plank.inputs:Basecolor_Tint>
+                        color3f inputs:in2.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Swizzle_1.outputs:out>
+                    }
+
+                    over "Mix"
+                    {
+                        color3f inputs:bg.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Swizzle_1.outputs:out>
+                        color3f inputs:fg.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Multiply_1.outputs:out>
+                        float inputs:mix.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Swizzle.outputs:out>
+                    }
+
+                    over "Dot"
+                    {
+                        float2 inputs:in.connect = </Root/Level2_1/Block_5/Block/Wood_Plank.inputs:UV_Scale>
+                    }
+
+                    over "Metallic"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "PreviewSurface"
+                    {
+                        color3f inputs:diffuseColor.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Mix.outputs:out>
+                        float inputs:metallic.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Metallic.outputs:out>
+                        float3 inputs:normal.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/add.outputs:out>
+                        float inputs:roughness.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Roughness.outputs:out>
+                    }
+
+                    over "Normal"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "BaseColor"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "Roughness"
+                    {
+                        float2 inputs:uvtiling.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Dot.outputs:out>
+                    }
+
+                    over "multiply"
+                    {
+                        float3 inputs:in1.connect = </Root/Level2_1/Block_5/Block/Wood_Plank/Normal.outputs:out>
+                    }
+                }
+            }
+        }
+
+        def "BlockB" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (0, -1.5707963, 0)
+            }
+            prepend references = @BlockB.usda@
+        )
+        {
+            quatf xformOp:orient = (0.7088649, 0, -0.7053444, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0.00210269, 0.012014626, -0.005607611)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "Block"
+            {
+                token outputs:mtlx:surface.connect = </Root/Level2_1/BlockB/Block/PreviewSurface.outputs:out>
+
+                over "add"
+                {
+                    float3 inputs:in1.connect = </Root/Level2_1/BlockB/Block/multiply.outputs:out>
+                }
+
+                over "Swizzle_1"
+                {
+                    color4f inputs:in.connect = </Root/Level2_1/BlockB/Block/BaseColor.outputs:out>
+                }
+
+                over "Swizzle"
+                {
+                    color4f inputs:in.connect = </Root/Level2_1/BlockB/Block/BaseColor.outputs:out>
+                }
+
+                over "Multiply_1"
+                {
+                    color3f inputs:in1.connect = </Root/Level2_1/BlockB/Block.inputs:Basecolor_Tint>
+                    color3f inputs:in2.connect = </Root/Level2_1/BlockB/Block/Swizzle_1.outputs:out>
+                }
+
+                over "Mix"
+                {
+                    color3f inputs:bg.connect = </Root/Level2_1/BlockB/Block/Swizzle_1.outputs:out>
+                    color3f inputs:fg.connect = </Root/Level2_1/BlockB/Block/Multiply_1.outputs:out>
+                    float inputs:mix.connect = </Root/Level2_1/BlockB/Block/Swizzle.outputs:out>
+                }
+
+                over "Dot"
+                {
+                    float2 inputs:in.connect = </Root/Level2_1/BlockB/Block.inputs:UV_Scale>
+                }
+
+                over "Metallic"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level2_1/BlockB/Block/Dot.outputs:out>
+                }
+
+                over "PreviewSurface"
+                {
+                    color3f inputs:diffuseColor.connect = </Root/Level2_1/BlockB/Block/Mix.outputs:out>
+                    float inputs:metallic.connect = </Root/Level2_1/BlockB/Block/Metallic.outputs:out>
+                    float3 inputs:normal.connect = </Root/Level2_1/BlockB/Block/add.outputs:out>
+                    float inputs:roughness.connect = </Root/Level2_1/BlockB/Block/Roughness.outputs:out>
+                }
+
+                over "Normal"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level2_1/BlockB/Block/Dot.outputs:out>
+                }
+
+                over "BaseColor"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level2_1/BlockB/Block/Dot.outputs:out>
+                }
+
+                over "Roughness"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level2_1/BlockB/Block/Dot.outputs:out>
+                }
+
+                over "multiply"
+                {
+                    float3 inputs:in1.connect = </Root/Level2_1/BlockB/Block/Normal.outputs:out>
+                }
+            }
+
+            over "Wood_Plank"
+            {
+                token outputs:mtlx:surface.connect = </Root/Level2_1/BlockB/Wood_Plank/PreviewSurface.outputs:out>
+
+                over "add"
+                {
+                    float3 inputs:in1.connect = </Root/Level2_1/BlockB/Wood_Plank/multiply.outputs:out>
+                }
+
+                over "Swizzle_1"
+                {
+                    color4f inputs:in.connect = </Root/Level2_1/BlockB/Wood_Plank/BaseColor.outputs:out>
+                }
+
+                over "Swizzle"
+                {
+                    color4f inputs:in.connect = </Root/Level2_1/BlockB/Wood_Plank/BaseColor.outputs:out>
+                }
+
+                over "Multiply_1"
+                {
+                    color3f inputs:in1.connect = </Root/Level2_1/BlockB/Wood_Plank.inputs:Basecolor_Tint>
+                    color3f inputs:in2.connect = </Root/Level2_1/BlockB/Wood_Plank/Swizzle_1.outputs:out>
+                }
+
+                over "Mix"
+                {
+                    color3f inputs:bg.connect = </Root/Level2_1/BlockB/Wood_Plank/Swizzle_1.outputs:out>
+                    color3f inputs:fg.connect = </Root/Level2_1/BlockB/Wood_Plank/Multiply_1.outputs:out>
+                    float inputs:mix.connect = </Root/Level2_1/BlockB/Wood_Plank/Swizzle.outputs:out>
+                }
+
+                over "Dot"
+                {
+                    float2 inputs:in.connect = </Root/Level2_1/BlockB/Wood_Plank.inputs:UV_Scale>
+                }
+
+                over "Metallic"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level2_1/BlockB/Wood_Plank/Dot.outputs:out>
+                }
+
+                over "PreviewSurface"
+                {
+                    color3f inputs:diffuseColor.connect = </Root/Level2_1/BlockB/Wood_Plank/Mix.outputs:out>
+                    float inputs:metallic.connect = </Root/Level2_1/BlockB/Wood_Plank/Metallic.outputs:out>
+                    float3 inputs:normal.connect = </Root/Level2_1/BlockB/Wood_Plank/add.outputs:out>
+                    float inputs:roughness.connect = </Root/Level2_1/BlockB/Wood_Plank/Roughness.outputs:out>
+                }
+
+                over "Normal"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level2_1/BlockB/Wood_Plank/Dot.outputs:out>
+                }
+
+                over "BaseColor"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level2_1/BlockB/Wood_Plank/Dot.outputs:out>
+                }
+
+                over "Roughness"
+                {
+                    float2 inputs:uvtiling.connect = </Root/Level2_1/BlockB/Wood_Plank/Dot.outputs:out>
+                }
+
+                over "multiply"
+                {
+                    float3 inputs:in1.connect = </Root/Level2_1/BlockB/Wood_Plank/Normal.outputs:out>
+                }
+            }
+        }
+    }
+}
+
