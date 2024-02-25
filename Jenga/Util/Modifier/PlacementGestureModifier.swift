@@ -8,8 +8,8 @@ import SwiftUI
 
 /// A modifier that adds gestures and positioning to a view.
 struct PlacementGestureModifier: ViewModifier {
-    @State private var position: Point3D = .zero
     @State private var startPosition: Point3D? = nil
+    @State var position: Point3D = .zero
     @Binding var blocksMoving: [Bool]
     var index: Int
 

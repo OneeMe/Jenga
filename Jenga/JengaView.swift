@@ -18,6 +18,7 @@ struct JengaView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     @StateObject var model: JengaViewModel = .init()
+    let shareModel: ShareModel = .init()
 
     var body: some View {
         VStack(spacing: 0) {
@@ -54,8 +55,7 @@ struct JengaView: View {
                 blocksMoving.append(contentsOf: Array(repeating: false, count: 18*3))
             }
             .onDisappear {}
-            .onChange(of: isEndGame, initial: false) {
-            }
+            .onChange(of: isEndGame, initial: false) {}
             .onReceive(timer) { _ in
                 model.time += 1
             }
@@ -75,6 +75,9 @@ struct JengaView: View {
                 }
                 .frame(width: 0, height: 0)
             }
+        }
+        .task {
+            await shareModel.prepareSession()
         }
     }
 }
@@ -122,7 +125,7 @@ private func getBlocColor(red: Int) -> UIColor {
     return UIColor(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: 1)
 }
 
-#Preview {
+#Preview("Immersive", immersionStyle: .mixed) {
     JengaView()
         .previewLayout(.sizeThatFits)
 }

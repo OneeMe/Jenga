@@ -16,6 +16,7 @@
 		BD79A7E82B834FC50006E650 /* JengaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79A7E72B834FC50006E650 /* JengaView.swift */; };
 		BD79A7EA2B834FC60006E650 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD79A7E92B834FC60006E650 /* Assets.xcassets */; };
 		BD79A7ED2B834FC60006E650 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD79A7EC2B834FC60006E650 /* Preview Assets.xcassets */; };
+		BD8E0A062B8B1DA80063BE1E /* JengaGroupActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8E0A052B8B1DA80063BE1E /* JengaGroupActivity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		BD79A7E92B834FC60006E650 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD79A7EC2B834FC60006E650 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BD79A7EE2B834FC60006E650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD8E0A052B8B1DA80063BE1E /* JengaGroupActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JengaGroupActivity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 		BD79A7F42B834FD40006E650 /* SharePlay */ = {
 			isa = PBXGroup;
 			children = (
+				BD8E0A052B8B1DA80063BE1E /* JengaGroupActivity.swift */,
 			);
 			path = SharePlay;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD5659EA2B861A5500DBD536 /* JengaViewModel.swift in Sources */,
+				BD8E0A062B8B1DA80063BE1E /* JengaGroupActivity.swift in Sources */,
 				BD79A7E62B834FC50006E650 /* MainMenu.swift in Sources */,
 				BD79A7E42B834FC50006E650 /* JengaApp.swift in Sources */,
 				BD79A7E82B834FC50006E650 /* JengaView.swift in Sources */,
@@ -349,6 +353,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.family-games";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -357,9 +362,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = zone.xreality.Jenga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 7;
 			};
 			name = Debug;
 		};
@@ -375,6 +381,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.family-games";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,9 +390,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = zone.xreality.Jenga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 7;
 			};
 			name = Release;
 		};
