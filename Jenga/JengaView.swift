@@ -33,6 +33,9 @@ struct JengaView: View {
                 // Deposite Area
                 let depositArea = setupDepositArea()
                 content.add(depositArea)
+                
+                // add tower
+                let tower = createTower(model)
 
                 // Events
                 let eventTable = content.subscribe(to: CollisionEvents.Began.self, on: table) { _ in
@@ -51,7 +54,6 @@ struct JengaView: View {
                 }
             }
             .onAppear {
-                blocks.append(contentsOf: createTower(model))
                 blocksMoving.append(contentsOf: Array(repeating: false, count: 18*3))
             }
             .onDisappear {}
@@ -62,19 +64,19 @@ struct JengaView: View {
             .frame(width: 0, height: 0)
 
             // Blocks
-            ForEach(Array(blocks.enumerated()), id: \.offset) { index, element in
-                RealityView { content in
-                    content.add(element)
-                }
-                .modifier(PlacementGestureModifier(blocksMoving: $blocksMoving, index: index))
-                .onChange(of: blocksMoving, initial: false) { value, newValue in
-                    let indices = zip(value, newValue).enumerated().filter { $1.0 != $1.1 }.map { $0.offset }
-                    if let index = indices.first {
-                        updateBlockGravity(block: blocks[index], isBlockMoving: blocksMoving[index])
-                    }
-                }
-                .frame(width: 0, height: 0)
-            }
+//            ForEach(Array(blocks.enumerated()), id: \.offset) { index, element in
+//                RealityView { content in
+//                    content.add(element)
+//                }
+//                .modifier(PlacementGestureModifier(blocksMoving: $blocksMoving, index: index))
+//                .onChange(of: blocksMoving, initial: false) { value, newValue in
+//                    let indices = zip(value, newValue).enumerated().filter { $1.0 != $1.1 }.map { $0.offset }
+//                    if let index = indices.first {
+//                        updateBlockGravity(block: blocks[index], isBlockMoving: blocksMoving[index])
+//                    }
+//                }
+//                .frame(width: 0, height: 0)
+//            }
         }
         .task {
             await shareModel.prepareSession()
@@ -96,8 +98,8 @@ func convertDouble4x4ToFloat4x4(_ matrix: simd_double4x4) -> float4x4 {
     )
 }
 
-@MainActor func createTower(_ model: JengaViewModel) -> [ModelEntity] {
-    var tower: [ModelEntity] = []
+@MainActor func createTower(_ model: JengaViewModel) -> Entity {
+    var tower = Entity()
     let x: Float = 0
     let y: Float = 1.02
     let z: Float = -2
@@ -107,13 +109,13 @@ func convertDouble4x4ToFloat4x4(_ matrix: simd_double4x4) -> float4x4 {
         let colorM: UIColor = getBlocColor(red: Int.random(in: 200...230))
         let colorR: UIColor = getBlocColor(red: Int.random(in: 200...230))
         if i % 2 == 0 {
-            tower.append(setupBlock(position: SIMD3(x: x, y: yi, z: z+0.025), color: colorL, isOddFloor: false))
-            tower.append(setupBlock(position: SIMD3(x: x, y: yi, z: z), color: colorM, isOddFloor: false))
-            tower.append(setupBlock(position: SIMD3(x: x, y: yi, z: z - 0.025), color: colorR, isOddFloor: false))
+            tower.addChild(setupBlock(position: SIMD3(x: x, y: yi, z: z+0.025), color: colorL, isOddFloor: false, parent: tower))
+            tower.addChild(setupBlock(position: SIMD3(x: x, y: yi, z: z), color: colorM, isOddFloor: false, parent: tower))
+            tower.addChild(setupBlock(position: SIMD3(x: x, y: yi, z: z - 0.025), color: colorR, isOddFloor: false, parent: tower))
         } else {
-            tower.append(setupBlock(position: SIMD3(x: x - 0.025, y: yi, z: z), color: colorR, isOddFloor: true))
-            tower.append(setupBlock(position: SIMD3(x: x, y: yi, z: z), color: colorM, isOddFloor: true))
-            tower.append(setupBlock(position: SIMD3(x: x+0.025, y: yi, z: z), color: colorL, isOddFloor: true))
+            tower.addChild(setupBlock(position: SIMD3(x: x - 0.025, y: yi, z: z), color: colorR, isOddFloor: true, parent: tower))
+            tower.addChild(setupBlock(position: SIMD3(x: x, y: yi, z: z), color: colorM, isOddFloor: true, parent: tower))
+            tower.addChild(setupBlock(position: SIMD3(x: x+0.025, y: yi, z: z), color: colorL, isOddFloor: true, parent: tower))
         }
     }
     return tower

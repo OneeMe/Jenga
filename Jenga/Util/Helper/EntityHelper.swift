@@ -10,7 +10,7 @@ import SwiftUI
 
 private let blockSize: SIMD3<Float> = [0.075, 0.015, 0.025]
 
-func setupBlock(position: SIMD3<Float>, color: UIColor, isOddFloor: Bool) -> ModelEntity {
+func setupBlock(position: SIMD3<Float>, color: UIColor, isOddFloor: Bool, parent: Entity)-> ModelEntity {
     let width = isOddFloor ? blockSize.z : blockSize.x
     let height = blockSize.y
     let depth = isOddFloor ? blockSize.x : blockSize.z
@@ -23,7 +23,7 @@ func setupBlock(position: SIMD3<Float>, color: UIColor, isOddFloor: Bool) -> Mod
     block.components.set(InputTargetComponent())
     block.collision = CollisionComponent(shapes: [.generateBox(width: width, height: height, depth: depth)], mode: .colliding)
     block.physicsBody = PhysicsBodyComponent(massProperties: PhysicsMassProperties(mass: 0.1), mode: .dynamic)
-    block.setPosition(position, relativeTo: nil)
+    block.setPosition(position, relativeTo: parent)
     return block
 }
 
