@@ -64,8 +64,8 @@ struct JengaView: View {
             }
             .frame(width: 0, height: 0)
             .gesture(DragGesture().targetedToAnyEntity().onChanged({ value in
-                let location = value.convert(value.gestureValue.location3D, from: .global, to: value.entity.parent!)
-                value.entity.setPosition(location, relativeTo: value.entity.parent)
+                let location = value.convert(value.gestureValue.location3D, from: .local , to: .scene)
+                value.entity.setPosition(location, relativeTo: nil)
             }))
 
             // Blocks
