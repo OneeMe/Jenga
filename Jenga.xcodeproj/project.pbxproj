@@ -17,6 +17,7 @@
 		BD79A7EA2B834FC60006E650 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD79A7E92B834FC60006E650 /* Assets.xcassets */; };
 		BD79A7ED2B834FC60006E650 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD79A7EC2B834FC60006E650 /* Preview Assets.xcassets */; };
 		BD8E0A062B8B1DA80063BE1E /* JengaGroupActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8E0A052B8B1DA80063BE1E /* JengaGroupActivity.swift */; };
+		BDB232512B90C5B0007BD5BB /* BlockComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB232502B90C5B0007BD5BB /* BlockComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		BD79A7EC2B834FC60006E650 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BD79A7EE2B834FC60006E650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD8E0A052B8B1DA80063BE1E /* JengaGroupActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JengaGroupActivity.swift; sourceTree = "<group>"; };
+		BDB232502B90C5B0007BD5BB /* BlockComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		BD79A7DE2B834FC50006E650 /* Jenga */ = {
 			isa = PBXGroup;
 			children = (
+				BDB2324F2B90C59B007BD5BB /* Component */,
 				BD5659EB2B86226200DBD536 /* Util */,
 				BD5659E82B861A3300DBD536 /* ViewModel */,
 				BD79A7F42B834FD40006E650 /* SharePlay */,
@@ -134,6 +137,14 @@
 				BD8E0A052B8B1DA80063BE1E /* JengaGroupActivity.swift */,
 			);
 			path = SharePlay;
+			sourceTree = "<group>";
+		};
+		BDB2324F2B90C59B007BD5BB /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				BDB232502B90C5B0007BD5BB /* BlockComponent.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +225,7 @@
 				BD79A7E62B834FC50006E650 /* MainMenu.swift in Sources */,
 				BD79A7E42B834FC50006E650 /* JengaApp.swift in Sources */,
 				BD79A7E82B834FC50006E650 /* JengaView.swift in Sources */,
+				BDB232512B90C5B0007BD5BB /* BlockComponent.swift in Sources */,
 				BD5659F02B86284B00DBD536 /* EntityHelper.swift in Sources */,
 				BD5659EE2B86227A00DBD536 /* PlacementGestureModifier.swift in Sources */,
 			);

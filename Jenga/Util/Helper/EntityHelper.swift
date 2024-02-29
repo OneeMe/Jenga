@@ -21,6 +21,7 @@ func setupBlock(position: SIMD3<Float>, color: UIColor, isOddFloor: Bool, parent
         materials: [material]
     )
     block.components.set(InputTargetComponent())
+    block.components.set(BlockComponent())
     block.collision = CollisionComponent(shapes: [.generateBox(width: width, height: height, depth: depth)], mode: .colliding)
     block.physicsBody = PhysicsBodyComponent(massProperties: PhysicsMassProperties(mass: 0.1), mode: .dynamic)
     block.setPosition(position, relativeTo: parent)

@@ -32,10 +32,11 @@ struct JengaView: View {
 
                 // Deposite Area
                 let depositArea = setupDepositArea()
-                content.add(depositArea)
-                
+//                content.add(depositArea)
+
                 // add tower
                 let tower = createTower(model)
+                content.add(tower)
 
                 // Events
                 let eventTable = content.subscribe(to: CollisionEvents.Began.self, on: table) { _ in
@@ -62,6 +63,10 @@ struct JengaView: View {
                 model.time += 1
             }
             .frame(width: 0, height: 0)
+            .gesture(DragGesture().targetedToAnyEntity().onChanged({ value in
+                let location = value.convert(value.gestureValue.location3D, from: .global, to: value.entity.parent!)
+                value.entity.setPosition(location, relativeTo: value.entity.parent)
+            }))
 
             // Blocks
 //            ForEach(Array(blocks.enumerated()), id: \.offset) { index, element in
@@ -88,18 +93,18 @@ struct JengaView: View {
         }
     }
 }
-                    
+
 func convertDouble4x4ToFloat4x4(_ matrix: simd_double4x4) -> float4x4 {
     return float4x4(
-        float4(Float(matrix[0,0]), Float(matrix[0,1]), Float(matrix[0,2]), Float(matrix[0,3])),
-        float4(Float(matrix[1,0]), Float(matrix[1,1]), Float(matrix[1,2]), Float(matrix[1,3])),
-        float4(Float(matrix[2,0]), Float(matrix[2,1]), Float(matrix[2,2]), Float(matrix[2,3])),
-        float4(Float(matrix[3,0]), Float(matrix[3,1]), Float(matrix[3,2]), Float(matrix[3,3]))
+        float4(Float(matrix[0, 0]), Float(matrix[0, 1]), Float(matrix[0, 2]), Float(matrix[0, 3])),
+        float4(Float(matrix[1, 0]), Float(matrix[1, 1]), Float(matrix[1, 2]), Float(matrix[1, 3])),
+        float4(Float(matrix[2, 0]), Float(matrix[2, 1]), Float(matrix[2, 2]), Float(matrix[2, 3])),
+        float4(Float(matrix[3, 0]), Float(matrix[3, 1]), Float(matrix[3, 2]), Float(matrix[3, 3]))
     )
 }
 
 @MainActor func createTower(_ model: JengaViewModel) -> Entity {
-    var tower = Entity()
+    let tower = Entity()
     let x: Float = 0
     let y: Float = 1.02
     let z: Float = -2
