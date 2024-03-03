@@ -33,6 +33,7 @@ class ShareModel: ObservableObject {
     @Published var positionsToUpdate = [BlockPosition]()
     
     var messenger: GroupSessionMessenger?
+    var tasks = Set<Task<Void, Never>>()
     
     init() {
         Task {
@@ -50,11 +51,12 @@ class ShareModel: ObservableObject {
                 
                 let messenger = GroupSessionMessenger(session: session)
                 
-                Task.detached { [weak self] in
+                let task = Task.detached { [weak self] in
                     for await (blockPosition, _) in messenger.messages(of: BlockPosition.self) {
                         await self?.handlePosition(position: blockPosition) // custom func to handle the received message. See below.
                     }
                 }
+                tasks.insert(task)
 
                 session.join()
                 
@@ -73,13 +75,14 @@ class ShareModel: ObservableObject {
         guard let messenger = messenger else {
             return
         }
-        Task {
+        let task = Task {
             do {
                 try await messenger.send(position)
             } catch {
                 print("send message error \(error)")
             }
         }
+        tasks.insert(task)
     }
     
     func prepareSession() async {
@@ -97,5 +100,16 @@ class ShareModel: ObservableObject {
             print("Cancelled")
         default: ()
         }
+    }
+    
+    func leaveSession() {
+        tasks.forEach { task in
+            task.cancel()
+        }
+        tasks.removeAll()
+        messenger = nil
+        groupSession?.leave()
+        groupSession = nil
+        positionsToUpdate.removeAll()
     }
 }
