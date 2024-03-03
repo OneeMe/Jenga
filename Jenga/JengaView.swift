@@ -20,13 +20,7 @@ struct JengaView: View {
                 RealityView { content in
                     content.add(element)
                 }
-                .modifier(PlacementGestureModifier(blocksMoving: $jengaModel.blocksMoving, index: index))
-                .onChange(of: jengaModel.blocksMoving, initial: false) { value, newValue in
-                    let indices = zip(value, newValue).enumerated().filter { $1.0 != $1.1 }.map { $0.offset }
-                    if let index = indices.first {
-                        updateBlockGravity(block: jengaModel.blocks[index], isBlockMoving: jengaModel.blocksMoving[index])
-                    }
-                }
+                .modifier(PlacementGestureModifier(movingBlocks: $jengaModel.movingBlockPositions, index: index))
                 .frame(width: 0, height: 0)
             }
             // tables
@@ -44,9 +38,12 @@ struct JengaView: View {
             }
             .frame(width: 0, height: 0)
         }
+        .onChange(of: shareModel.blockPositions, { oldValue, newValue in
+            jengaModel.movingBlockPositions = newValue
+        })
         .onAppear {
             jengaModel.blocks.append(contentsOf: createTower(jengaModel))
-            jengaModel.blocksMoving.append(contentsOf: Array(repeating: false, count: 18 * 3))
+            jengaModel.movingBlockPositions.append(contentsOf: Array(repeating: nil, count: 18 * 3))
         }
         .onDisappear {
             windowModel.isJengaShown = false

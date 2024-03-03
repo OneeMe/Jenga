@@ -19,15 +19,17 @@ struct JengaGroupActivity: GroupActivity {
     }
 }
 
-struct BlockPosition: Codable {
-    let positions: [Pose3D]
+struct BlockPosition: Codable, Equatable {
+    let position: Point3D
+    let index: Int
+    let startLocation: Point3D
 }
 
 class ShareModel: ObservableObject {
     let activity = JengaGroupActivity(position: 0)
     
     var groupSession: GroupSession<JengaGroupActivity>?
-    @Published var blockPositions = [Pose3D]()
+    @Published var blockPositions = [BlockPosition?]()
     
     var messenger: GroupSessionMessenger?
     
@@ -36,19 +38,19 @@ class ShareModel: ObservableObject {
             for await session in JengaGroupActivity.sessions() {
                 guard let systemCoordinator = await session.systemCoordinator else { continue }
                 
-                // TODO: find out what is the local mean
                 let isLocal = systemCoordinator.localParticipantState.isSpatial
-                
-                var configuration = SystemCoordinator.Configuration()
-                configuration.spatialTemplatePreference = .sideBySide
-                configuration.supportsGroupImmersiveSpace = true
-                systemCoordinator.configuration = configuration
+                if isLocal {
+                    var configuration = SystemCoordinator.Configuration()
+                    configuration.spatialTemplatePreference = .sideBySide
+                    configuration.supportsGroupImmersiveSpace = true
+                    systemCoordinator.configuration = configuration
+                }
                 
                 let messenger = GroupSessionMessenger(session: session)
                 
                 Task.detached { [weak self] in
-                    for await (blockPosition, _)  in messenger.messages(of: BlockPosition.self) {
-                        self?.handlePosition(position: blockPosition ) // custom func to handle the received message. See below.
+                    for await (blockPosition, _)  in messenger.messages(of: [BlockPosition?].self) {
+                        self?.handlePosition(positions: blockPosition ) // custom func to handle the received message. See below.
                     }
                 }
 
@@ -60,14 +62,17 @@ class ShareModel: ObservableObject {
         }
     }
     
-    func handlePosition(position: BlockPosition) {
-        self.blockPositions = position.positions
+    func handlePosition(positions: [BlockPosition?]) {
+        self.blockPositions = positions
     }
     
-    func send(positions: [Pose3D]) {
+    func send(positions: [BlockPosition?]) {
+        guard let messenger = self.messenger else {
+            return
+        }
         Task {
             do {
-                try await self.messenger?.send(BlockPosition(positions: positions))
+                try await messenger.send(positions)
             } catch {
                 print("send message error \(error)")
             }

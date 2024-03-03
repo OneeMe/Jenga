@@ -11,6 +11,6 @@ import SwiftUI
     @Published var score: Int = 0
     @Published var time: UInt16 = 0
 
+    @Published var movingBlockPositions: [BlockPosition?] = []
     @Published var blocks: [Entity] = []
-    @Published var blocksMoving: [Bool] = []
 }
