@@ -3,11 +3,13 @@
 // Created by: onee on 2024-02-19
 //
 #if os(visionOS)
+import GroupActivities
 import RealityKit
 import SwiftUI
 
 struct MainMenu: View {
     @EnvironmentObject var windowModel: WindowModel
+    @EnvironmentObject var shareModel: ShareModel
 
     @Environment(\.openWindow) var openWindow
     @Environment(\.dismissWindow) var dismissWindow
@@ -33,6 +35,23 @@ struct MainMenu: View {
                         Label("Start", systemImage: "play.fill")
                     }
                 })
+                if shareModel.enableSharePlay && windowModel.isJengaShown {
+                    Button(action: {
+                        if shareModel.canStartSharePlay {
+                            Task {
+                                await shareModel.prepareSession()
+                            }
+                        } else {
+                            shareModel.endSession()
+                        }
+                    }, label: {
+                        if shareModel.canStartSharePlay {
+                            Label("Start Share Play", systemImage: "person.2.fill")
+                        } else {
+                            Label("Stop Share Play", systemImage: "xmark")
+                        }
+                    })
+                }
             }
             .frame(width: 360)
             .padding(36)

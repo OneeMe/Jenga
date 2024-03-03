@@ -3,6 +3,7 @@
 // Created by: onee on 2024-02-25
 //
 
+import Combine
 import Foundation
 import GroupActivities
 import RealityKit
@@ -26,16 +27,24 @@ struct BlockPosition: Codable, Equatable {
     let startLocation: Point3D
 }
 
+@MainActor
 class ShareModel: ObservableObject {
     let activity = JengaGroupActivity(position: 0)
     
     var groupSession: GroupSession<JengaGroupActivity>?
+    private let groupStateObserver = GroupStateObserver()
+    private var cancellable: AnyCancellable?
     @Published var positionsToUpdate = [BlockPosition]()
+    @Published var canStartSharePlay: Bool = true
+    @Published var enableSharePlay: Bool = true
     
     var messenger: GroupSessionMessenger?
-    var tasks = Set<Task<Void, Never>>()
+    private var tasks = Set<Task<Void, Never>>()
     
     init() {
+        cancellable = groupStateObserver.$isEligibleForGroupSession.sink { [weak self] value in
+            self?.enableSharePlay = value
+        }
         Task {
             for await session in JengaGroupActivity.sessions() {
                 #if os(visionOS)
@@ -62,11 +71,11 @@ class ShareModel: ObservableObject {
                 
                 self.messenger = messenger
                 self.groupSession = session
+                canStartSharePlay = false
             }
         }
     }
     
-    @MainActor
     func handlePosition(position: BlockPosition) {
         positionsToUpdate.append(position)
     }
@@ -102,14 +111,15 @@ class ShareModel: ObservableObject {
         }
     }
     
-    func leaveSession() {
+    func endSession() {
         tasks.forEach { task in
             task.cancel()
         }
         tasks.removeAll()
         messenger = nil
-        groupSession?.leave()
+        groupSession?.end()
         groupSession = nil
         positionsToUpdate.removeAll()
+        canStartSharePlay = true
     }
 }

@@ -12,6 +12,7 @@ class WindowModel: ObservableObject {
 @main
 struct JengaApp: App {
     @StateObject var windowModel: WindowModel = .init()
+    @StateObject var shareModel: ShareModel = .init()
 
     var body: some Scene {
         #if os(iOS)
@@ -22,6 +23,7 @@ struct JengaApp: App {
                     allowing: [JengaGroupActivity.activityIdentifier]
                 )
         }
+        .environmentObject(shareModel)
         #endif
         #if os(visionOS)
         WindowGroup {
@@ -29,6 +31,7 @@ struct JengaApp: App {
         }
         .defaultSize(.init(width: 500, height: 400))
         .environmentObject(windowModel)
+        .environmentObject(shareModel)
 
         WindowGroup(id: "JengaView") {
             JengaView()
@@ -40,6 +43,7 @@ struct JengaApp: App {
         .windowStyle(.volumetric)
         .defaultSize(width: 1000, height: 1000, depth: 1000)
         .environmentObject(windowModel)
+        .environmentObject(shareModel)
         #endif
     }
 }

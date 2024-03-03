@@ -58,10 +58,7 @@ struct JengaView: View {
         }
         .onDisappear {
             windowModel.isJengaShown = false
-            shareModel.leaveSession()
-        }
-        .task {
-            await shareModel.prepareSession()
+            shareModel.endSession()
         }
         .environmentObject(shareModel)
     }
