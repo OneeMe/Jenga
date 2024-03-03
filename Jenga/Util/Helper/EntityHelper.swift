@@ -74,10 +74,14 @@ func setupBlock(position: SIMD3<Float>, color: UIColor, isOddFloor: Bool) -> Mod
         mesh: MeshResource.generateBox(width: width, height: height, depth: depth),
         materials: [material]
     )
+    #if targetEnvironment(simulator)
     block.components.set(InputTargetComponent())
+    #else
+    block.components.set(InputTargetComponent(allowedInputTypes: [.direct]))
+    #endif
     block.components.set(BlockComponent())
     block.collision = CollisionComponent(shapes: [.generateBox(width: width, height: height, depth: depth)], mode: .colliding)
-    block.physicsBody = PhysicsBodyComponent(massProperties: PhysicsMassProperties(mass: 0.1), mode: .dynamic)
+    block.physicsBody = PhysicsBodyComponent(massProperties: PhysicsMassProperties(mass: 0.3), mode: .dynamic)
     block.physicsBody?.isAffectedByGravity = true
     block.setPosition(position, relativeTo: nil)
     return block

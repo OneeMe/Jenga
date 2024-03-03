@@ -8,7 +8,7 @@ import RealityKitContent
 import SwiftUI
 
 struct MainMenu: View {
-    @State private var isJengaShown = false
+    @EnvironmentObject var windowModel: WindowModel
 
     @Environment(\.openWindow) var openWindow
     @Environment(\.dismissWindow) var dismissWindow
@@ -21,14 +21,14 @@ struct MainMenu: View {
                     .fontWeight(.bold)
                     .padding()
                 Button(action: {
-                    if !isJengaShown {
+                    if !windowModel.isJengaShown {
                         openWindow(id: "JengaView")
                     } else {
                         dismissWindow(id: "JengaView")
                     }
-                    isJengaShown = !isJengaShown
+                    windowModel.isJengaShown = !windowModel.isJengaShown
                 }, label: {
-                    if isJengaShown {
+                    if windowModel.isJengaShown {
                         Label("Quit", systemImage: "xmark")
                     } else {
                         Label("Start", systemImage: "play.fill")

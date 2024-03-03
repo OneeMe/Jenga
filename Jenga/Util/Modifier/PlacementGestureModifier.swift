@@ -19,7 +19,7 @@ struct PlacementGestureModifier: ViewModifier {
             .offset(z: position.z)
 
             // Enable people to move the model anywhere in their space.
-            .simultaneousGesture(DragGesture(minimumDistance: 0.0, coordinateSpace: .global)
+            .simultaneousGesture(DragGesture(minimumDistance: 0.1, coordinateSpace: .global)
                 .onChanged { value in
                     blocksMoving[index] = true
                     if let startPosition {

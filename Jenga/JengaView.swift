@@ -8,9 +8,10 @@ import RealityKitContent
 import SwiftUI
 
 struct JengaView: View {
-
     @StateObject var jengaModel: JengaViewModel = .init()
     @StateObject var shareModel: ShareModel = .init()
+
+    @EnvironmentObject var windowModel: WindowModel
 
     var body: some View {
         VStack(spacing: 0) {
@@ -43,9 +44,12 @@ struct JengaView: View {
             }
             .frame(width: 0, height: 0)
         }
-        .onAppear() {
+        .onAppear {
             jengaModel.blocks.append(contentsOf: createTower(jengaModel))
-            jengaModel.blocksMoving.append(contentsOf: Array(repeating: false, count: 18*3))
+            jengaModel.blocksMoving.append(contentsOf: Array(repeating: false, count: 18 * 3))
+        }
+        .onDisappear {
+            windowModel.isJengaShown = false
         }
         .task {
             await shareModel.prepareSession()
