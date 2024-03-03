@@ -2,9 +2,8 @@
 // Jenga
 // Created by: onee on 2024-02-19
 //
-
+#if os(visionOS)
 import RealityKit
-import RealityKitContent
 import SwiftUI
 
 struct MainMenu: View {
@@ -44,3 +43,4 @@ struct MainMenu: View {
 #Preview() {
     MainMenu()
 }
+#endif

@@ -2,7 +2,7 @@
 // Jenga
 // Created by: onee on 2024-02-19
 //
-
+#if os(visionOS)
 import RealityKit
 import SwiftUI
 
@@ -41,3 +41,4 @@ struct PlacementGestureModifier: ViewModifier {
             )
     }
 }
+#endif

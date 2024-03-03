@@ -2,7 +2,7 @@
 // Jenga
 // Created by: onee on 2024-02-21
 //
-
+#if os(visionOS)
 import ARKit
 import Foundation
 import RealityKit
@@ -138,3 +138,4 @@ func updateBlockGravity(block: Entity, isBlockMoving: Bool) {
         )
     )
 }
+#endif

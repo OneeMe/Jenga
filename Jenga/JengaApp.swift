@@ -14,6 +14,12 @@ struct JengaApp: App {
     @StateObject var windowModel: WindowModel = .init()
     
     var body: some Scene {
+        #if os(iOS)
+        WindowGroup {
+            IOSView()
+        }
+        #endif
+        #if os(visionOS)
         WindowGroup {
             MainMenu()
         }
@@ -26,5 +32,6 @@ struct JengaApp: App {
         .windowStyle(.volumetric)
         .defaultSize(width: 1000, height: 1000, depth: 1000)
         .environmentObject(windowModel)
+        #endif
     }
 }

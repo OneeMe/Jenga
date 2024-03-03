@@ -10,7 +10,7 @@
 		BD5659EA2B861A5500DBD536 /* JengaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5659E92B861A5500DBD536 /* JengaViewModel.swift */; };
 		BD5659EE2B86227A00DBD536 /* PlacementGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5659ED2B86227A00DBD536 /* PlacementGestureModifier.swift */; };
 		BD5659F02B86284B00DBD536 /* EntityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5659EF2B86284B00DBD536 /* EntityHelper.swift */; };
-		BD79A7E22B834FC50006E650 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = BD79A7E12B834FC50006E650 /* RealityKitContent */; };
+		BD79A7E22B834FC50006E650 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; platformFilters = (xros, ); productRef = BD79A7E12B834FC50006E650 /* RealityKitContent */; };
 		BD79A7E42B834FC50006E650 /* JengaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79A7E32B834FC50006E650 /* JengaApp.swift */; };
 		BD79A7E62B834FC50006E650 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79A7E52B834FC50006E650 /* MainMenu.swift */; };
 		BD79A7E82B834FC50006E650 /* JengaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79A7E72B834FC50006E650 /* JengaView.swift */; };
@@ -18,6 +18,7 @@
 		BD79A7ED2B834FC60006E650 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD79A7EC2B834FC60006E650 /* Preview Assets.xcassets */; };
 		BD8E0A062B8B1DA80063BE1E /* JengaGroupActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8E0A052B8B1DA80063BE1E /* JengaGroupActivity.swift */; };
 		BDB232512B90C5B0007BD5BB /* BlockComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB232502B90C5B0007BD5BB /* BlockComponent.swift */; };
+		BDBD90792B94765800A303C0 /* IOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBD90782B94765800A303C0 /* IOSView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,8 @@
 		BD79A7EE2B834FC60006E650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD8E0A052B8B1DA80063BE1E /* JengaGroupActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JengaGroupActivity.swift; sourceTree = "<group>"; };
 		BDB232502B90C5B0007BD5BB /* BlockComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockComponent.swift; sourceTree = "<group>"; };
+		BDBD90772B946D6800A303C0 /* Jenga.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Jenga.entitlements; sourceTree = "<group>"; };
+		BDBD90782B94765800A303C0 /* IOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,13 +104,13 @@
 		BD79A7DE2B834FC50006E650 /* Jenga */ = {
 			isa = PBXGroup;
 			children = (
+				BDBD90772B946D6800A303C0 /* Jenga.entitlements */,
+				BD79A7E32B834FC50006E650 /* JengaApp.swift */,
 				BDB2324F2B90C59B007BD5BB /* Component */,
 				BD5659EB2B86226200DBD536 /* Util */,
 				BD5659E82B861A3300DBD536 /* ViewModel */,
 				BD79A7F42B834FD40006E650 /* SharePlay */,
-				BD79A7E32B834FC50006E650 /* JengaApp.swift */,
-				BD79A7E52B834FC50006E650 /* MainMenu.swift */,
-				BD79A7E72B834FC50006E650 /* JengaView.swift */,
+				BDBD90952B94788200A303C0 /* Views */,
 				BD79A7E92B834FC60006E650 /* Assets.xcassets */,
 				BD79A7EE2B834FC60006E650 /* Info.plist */,
 				BD79A7EB2B834FC60006E650 /* Preview Content */,
@@ -145,6 +148,16 @@
 				BDB232502B90C5B0007BD5BB /* BlockComponent.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		BDBD90952B94788200A303C0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BD79A7E52B834FC50006E650 /* MainMenu.swift */,
+				BDBD90782B94765800A303C0 /* IOSView.swift */,
+				BD79A7E72B834FC50006E650 /* JengaView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +240,7 @@
 				BD79A7E82B834FC50006E650 /* JengaView.swift in Sources */,
 				BDB232512B90C5B0007BD5BB /* BlockComponent.swift in Sources */,
 				BD5659F02B86284B00DBD536 /* EntityHelper.swift in Sources */,
+				BDBD90792B94765800A303C0 /* IOSView.swift in Sources */,
 				BD5659EE2B86227A00DBD536 /* PlacementGestureModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +372,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Jenga/Jenga.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Jenga/Preview Content\"";
@@ -373,11 +388,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = zone.xreality.Jenga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 7;
+				TARGETED_DEVICE_FAMILY = "1,7";
 			};
 			name = Debug;
 		};
@@ -386,6 +401,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Jenga/Jenga.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Jenga/Preview Content\"";
@@ -401,11 +417,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = zone.xreality.Jenga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 7;
+				TARGETED_DEVICE_FAMILY = "1,7";
 			};
 			name = Release;
 		};

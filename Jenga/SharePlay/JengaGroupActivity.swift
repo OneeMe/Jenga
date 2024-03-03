@@ -36,8 +36,8 @@ class ShareModel: ObservableObject {
     init() {
         Task {
             for await session in JengaGroupActivity.sessions() {
+                #if os(visionOS)
                 guard let systemCoordinator = await session.systemCoordinator else { continue }
-                
                 let isLocal = systemCoordinator.localParticipantState.isSpatial
                 if isLocal {
                     var configuration = SystemCoordinator.Configuration()
@@ -45,12 +45,13 @@ class ShareModel: ObservableObject {
                     configuration.supportsGroupImmersiveSpace = true
                     systemCoordinator.configuration = configuration
                 }
+                #endif
                 
                 let messenger = GroupSessionMessenger(session: session)
                 
                 Task.detached { [weak self] in
-                    for await (blockPosition, _)  in messenger.messages(of: [BlockPosition?].self) {
-                        self?.handlePosition(positions: blockPosition ) // custom func to handle the received message. See below.
+                    for await (blockPosition, _) in messenger.messages(of: [BlockPosition?].self) {
+                        self?.handlePosition(positions: blockPosition) // custom func to handle the received message. See below.
                     }
                 }
 
@@ -63,11 +64,11 @@ class ShareModel: ObservableObject {
     }
     
     func handlePosition(positions: [BlockPosition?]) {
-        self.blockPositions = positions
+        blockPositions = positions
     }
     
     func send(positions: [BlockPosition?]) {
-        guard let messenger = self.messenger else {
+        guard let messenger = messenger else {
             return
         }
         Task {
@@ -83,7 +84,7 @@ class ShareModel: ObservableObject {
         // Await the result of the preparation call.
         switch await activity.prepareForActivation() {
         case .activationDisabled:
-            break
+            print("Activation is disabled")
         case .activationPreferred:
             do {
                 _ = try await activity.activate()
@@ -91,7 +92,7 @@ class ShareModel: ObservableObject {
                 print("Unable to activate the activity: \(error)")
             }
         case .cancelled:
-            break
+            print("Cancelled")
         default: ()
         }
     }
