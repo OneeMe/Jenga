@@ -29,7 +29,7 @@ class ShareModel: ObservableObject {
     let activity = JengaGroupActivity(position: 0)
     
     var groupSession: GroupSession<JengaGroupActivity>?
-    @Published var blockPositions = [BlockPosition?]()
+    @Published var positionsToUpdate = [BlockPosition]()
     
     var messenger: GroupSessionMessenger?
     
@@ -50,8 +50,8 @@ class ShareModel: ObservableObject {
                 let messenger = GroupSessionMessenger(session: session)
                 
                 Task.detached { [weak self] in
-                    for await (blockPosition, _) in messenger.messages(of: [BlockPosition?].self) {
-                        self?.handlePosition(positions: blockPosition) // custom func to handle the received message. See below.
+                    for await (blockPosition, _) in messenger.messages(of: BlockPosition.self) {
+                        await self?.handlePosition(position: blockPosition) // custom func to handle the received message. See below.
                     }
                 }
 
@@ -63,17 +63,18 @@ class ShareModel: ObservableObject {
         }
     }
     
-    func handlePosition(positions: [BlockPosition?]) {
-        blockPositions = positions
+    @MainActor
+    func handlePosition(position: BlockPosition) {
+        positionsToUpdate.append(position)
     }
     
-    func send(positions: [BlockPosition?]) {
+    func send(position: BlockPosition) {
         guard let messenger = messenger else {
             return
         }
         Task {
             do {
-                try await messenger.send(positions)
+                try await messenger.send(position)
             } catch {
                 print("send message error \(error)")
             }

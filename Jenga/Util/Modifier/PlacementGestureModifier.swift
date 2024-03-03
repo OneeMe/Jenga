@@ -12,6 +12,8 @@ struct PlacementGestureModifier: ViewModifier {
     @State var position: Point3D = .zero
     @Binding var movingBlocks: [BlockPosition?]
     var index: Int
+    
+    @EnvironmentObject var shareModel: ShareModel
 
     func body(content: Content) -> some View {
         content
@@ -29,13 +31,17 @@ struct PlacementGestureModifier: ViewModifier {
                     if let startPosition {
                         let delta = value.location3D - value.startLocation3D
                         position = startPosition + delta
-                        movingBlocks[index] = BlockPosition(position: position, index: index, startLocation: startPosition)
+                        let blockPosition = BlockPosition(position: position, index: index, startLocation: startPosition)
+                        movingBlocks[index] = blockPosition
+                        shareModel.send(position: blockPosition)
                     } else {
                         startPosition = position
                     }
                 }
                 .onEnded { _ in
+                    let blockPosition = BlockPosition(position: .zero, index: index, startLocation: .zero)
                     movingBlocks[index] = nil
+                    shareModel.send(position: blockPosition)
                     startPosition = nil
                 }
             )

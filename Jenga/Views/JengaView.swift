@@ -39,15 +39,20 @@ struct JengaView: View {
             .frame(width: 0, height: 0)
         }
         // get position from share play
-        .onChange(of: shareModel.blockPositions, { oldValue, newValue in
-            jengaModel.movingBlockPositions = newValue
-        })
-        // get position from local
-        .onChange(of: jengaModel.movingBlockPositions, { oldValue, newValue in
-            shareModel.send(positions: newValue)
+        .onChange(of: shareModel.positionsToUpdate, { oldValue, newValue in
+            if newValue.isEmpty {
+                return
+            }
+            for position in newValue {
+                if position.position == .zero {
+                    jengaModel.movingBlockPositions[position.index] = nil
+                } else {
+                    jengaModel.movingBlockPositions[position.index] = position
+                }
+            }
+            shareModel.positionsToUpdate.removeAll()
         })
         .onAppear {
-            print("fuck on appear")
             jengaModel.blocks.append(contentsOf: createTower(jengaModel))
             jengaModel.movingBlockPositions.append(contentsOf: Array(repeating: nil, count: 18 * 3))
         }
@@ -55,9 +60,9 @@ struct JengaView: View {
             windowModel.isJengaShown = false
         }
         .task {
-            print("fuck on prepare")
             await shareModel.prepareSession()
         }
+        .environmentObject(shareModel)
     }
 }
 

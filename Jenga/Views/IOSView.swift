@@ -17,12 +17,14 @@ struct IOSView: View {
             Text("Hello, world!\n\(text)")
         }
         .padding()
-        //        .task {
-        //            await shareModel.prepareSession()
-        //        }
-        .onChange(of: shareModel.blockPositions) { _, newValue in
+        
+        .onChange(of: shareModel.positionsToUpdate) { _, newValue in
+            if newValue.isEmpty {
+                return
+            }
             // convert new value to json string
-            text = newValue.map { $0?.position.description ?? "null" }.joined(separator: ", ")
+            text = newValue.map { "index: \($0.index), position: \($0.position.description)" }.joined(separator: "\n\n")
+            shareModel.positionsToUpdate.removeAll()
         }
     }
 }
