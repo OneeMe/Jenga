@@ -15,6 +15,7 @@ struct JengaGroupActivity: GroupActivity {
         var metaData = GroupActivityMetadata()
         metaData.type = .generic
         metaData.title = "PlayToghter"
+        metaData.sceneAssociationBehavior = .content(JengaGroupActivity.activityIdentifier)
         return metaData
     }
 }

@@ -12,11 +12,15 @@ class WindowModel: ObservableObject {
 @main
 struct JengaApp: App {
     @StateObject var windowModel: WindowModel = .init()
-    
+
     var body: some Scene {
         #if os(iOS)
         WindowGroup {
             IOSView()
+                .handlesExternalEvents(
+                    preferring: [JengaGroupActivity.activityIdentifier],
+                    allowing: [JengaGroupActivity.activityIdentifier]
+                )
         }
         #endif
         #if os(visionOS)
@@ -28,6 +32,10 @@ struct JengaApp: App {
 
         WindowGroup(id: "JengaView") {
             JengaView()
+                .handlesExternalEvents(
+                    preferring: [JengaGroupActivity.activityIdentifier],
+                    allowing: [JengaGroupActivity.activityIdentifier]
+                )
         }
         .windowStyle(.volumetric)
         .defaultSize(width: 1000, height: 1000, depth: 1000)
