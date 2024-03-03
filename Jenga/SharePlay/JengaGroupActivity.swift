@@ -19,6 +19,10 @@ struct JengaGroupActivity: GroupActivity {
         metaData.sceneAssociationBehavior = .content(JengaGroupActivity.activityIdentifier)
         return metaData
     }
+    
+    static var activityIdentifier: String {
+        "zone.xreality.jenga.play.together"
+    }
 }
 
 struct BlockPosition: Codable, Equatable {
