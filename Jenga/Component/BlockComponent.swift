@@ -5,7 +5,8 @@
 
 import Foundation
 import RealityKit
+import Spatial
 
 struct BlockComponent: Component {
-    // just a place holder
+    var startDragLocation: Point3D?
 }

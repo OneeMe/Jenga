@@ -8,10 +8,10 @@ import RealityKitContent
 import SwiftUI
 
 struct MainMenu: View {
-    @State private var immersiveSpaceIsShown = false
+    @State private var isJengaShown = false
 
-    @Environment(\.openImmersiveSpace) var openImmersiveSpace
-    @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+    @Environment(\.openWindow) var openWindow
+    @Environment(\.dismissWindow) var dismissWindow
 
     var body: some View {
         VStack {
@@ -21,35 +21,19 @@ struct MainMenu: View {
                     .fontWeight(.bold)
                     .padding()
                 Button(action: {
-                    if !immersiveSpaceIsShown {
-                        Task {
-                            switch await openImmersiveSpace(id: "JengaView") {
-                            case .opened:
-                                immersiveSpaceIsShown = true
-                            case .error, .userCancelled:
-                                fallthrough
-                            @unknown default:
-                                immersiveSpaceIsShown = false
-                            }
-                        }
+                    if !isJengaShown {
+                        openWindow(id: "JengaView")
+                    } else {
+                        dismissWindow(id: "JengaView")
                     }
+                    isJengaShown = !isJengaShown
                 }, label: {
-                    if immersiveSpaceIsShown {
-                        Label("Reset", systemImage: "play.fill")
+                    if isJengaShown {
+                        Label("Quit", systemImage: "xmark")
                     } else {
                         Label("Start", systemImage: "play.fill")
                     }
                 })
-                if immersiveSpaceIsShown {
-                    Button(action: {
-                        Task {
-                            await dismissImmersiveSpace()
-                            immersiveSpaceIsShown = false
-                        }
-                    }, label: {
-                        Label("Quit", systemImage: "play.fill")
-                    })
-                }
             }
             .frame(width: 360)
             .padding(36)

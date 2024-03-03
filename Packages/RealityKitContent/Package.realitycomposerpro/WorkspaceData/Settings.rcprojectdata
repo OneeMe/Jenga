@@ -4,7 +4,7 @@
   },
   "secondaryToolbarData" : {
     "isGridVisible" : true,
-    "sceneReverbPreset" : -1
+    "sceneReverbPreset" : 1012
   },
   "unitDefaults" : {
     "°" : "°",

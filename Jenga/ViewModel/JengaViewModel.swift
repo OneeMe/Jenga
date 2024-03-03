@@ -10,8 +10,7 @@ import SwiftUI
 @MainActor class JengaViewModel: ObservableObject {
     @Published var score: Int = 0
     @Published var time: UInt16 = 0
-    
-    let blocks = [String: Entity]()
-    
-    
+
+    @Published var blocks: [Entity] = []
+    @Published var blocksMoving: [Bool] = []
 }

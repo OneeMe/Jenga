@@ -13,8 +13,10 @@ struct JengaApp: App {
         }
         .defaultSize(.init(width: 500, height: 400))
 
-        ImmersiveSpace(id: "JengaView") {
+        WindowGroup(id: "JengaView") {
             JengaView()
         }
+        .windowStyle(.volumetric)
+        .defaultSize(width: 1000, height: 1000, depth: 1000)
     }
 }

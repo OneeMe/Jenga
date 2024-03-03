@@ -4,20 +4,20 @@
         string creator = "Reality Composer Pro Version 1.0 (409.60.6)"
     }
     defaultPrim = "Root"
-    metersPerUnit = 1
+    metersPerUnit = 3
     upAxis = "Y"
 )
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Block", "Wood_Plank"]
+    reorder nameChildren = ["Wood_Plank", "Block"]
     def Cube "Block" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
         references = None
     )
     {
-        rel material:binding = </Root/Block/Wood_Plank> (
+        rel material:binding = </Root/Wood_Plank> (
             bindMaterialAs = "weakerThanDescendants"
         )
         double size = 0.2
@@ -25,94 +25,135 @@ def Xform "Root"
         float3 xformOp:scale = (0.075, 0.015, 0.025)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
-        def "Wood_Plank" (
-            active = true
-            references = @Materials/WoodPlank.usdz@
-        )
+        def RealityKitComponent "InputTarget"
         {
-            color3f inputs:Basecolor_Tint (
-                customData = {
-                    dictionary realitykit = {
-                        float2 positionInSubgraph = (-56.812614, 67.17455)
-                        float2 sizeInSubgraph = (160.5, 53)
-                        int stackingOrderInSubgraph = 2352
-                    }
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (0.2, 0.2, 0.2)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
                 }
-            )
-            float2 inputs:UV_Scale (
-                customData = {
-                    dictionary realitykit = {
-                        float2 positionInSubgraph = (-725.2588, 351.55255)
-                        float2 sizeInSubgraph = (138.5, 53)
-                        int stackingOrderInSubgraph = 2272
-                    }
+            }
+        }
+
+        def RealityKitComponent "RigidBody"
+        {
+            uniform token info:id = "RealityKit.RigidBody"
+            bool isCCDEnabled = 1
+
+            def RealityKitStruct "massFrame"
+            {
+                def RealityKitStruct "m_pose"
+                {
                 }
-            )
-            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (1, 1, 1)
-            float3 xformOp:translate = (0.0031067638, 0, 0.008201638)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-            over "Dot"
-            {
-                float2 ui:nodegraph:node:size = (44, 18)
             }
 
-            over "multiply"
+            def RealityKitStruct "material"
             {
-                float2 ui:nodegraph:node:size = (60, 36)
             }
+        }
+    }
 
-            over "add"
-            {
-                float2 ui:nodegraph:node:size = (61.5, 36.5)
+    def "Wood_Plank" (
+        active = true
+        references = @Materials/WoodPlank.usdz@
+    )
+    {
+        color3f inputs:Basecolor_Tint = (0.928716, 0.74007124, 0.56735665) (
+            colorSpace = "srgb_displayp3"
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-56.812614, 67.17455)
+                    float2 sizeInSubgraph = (160.5, 53)
+                    int stackingOrderInSubgraph = 2352
+                }
             }
+        )
+        float2 inputs:UV_Scale (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-725.2588, 351.55255)
+                    float2 sizeInSubgraph = (138.5, 53)
+                    int stackingOrderInSubgraph = 2272
+                }
+            }
+        )
+        float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.0031067638, 0, 0.008201638)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
-            over "PreviewSurface"
-            {
-                float2 ui:nodegraph:node:size = (148.5, 199)
-            }
+        over "Dot"
+        {
+            float2 ui:nodegraph:node:size = (44, 18)
+        }
 
-            over "Mix"
-            {
-                float2 ui:nodegraph:node:size = (109, 145)
-            }
+        over "multiply"
+        {
+            float2 ui:nodegraph:node:size = (60, 36)
+        }
 
-            over "Swizzle"
-            {
-                float2 ui:nodegraph:node:size = (133.5, 40)
-            }
+        over "add"
+        {
+            float2 ui:nodegraph:node:size = (61.5, 36.5)
+        }
 
-            over "Swizzle_1"
-            {
-                float2 ui:nodegraph:node:size = (145.5, 53)
-            }
+        over "PreviewSurface"
+        {
+            float2 ui:nodegraph:node:size = (148.5, 199)
+        }
 
-            over "Multiply_1"
-            {
-                float2 ui:nodegraph:node:size = (60, 36)
-            }
+        over "Mix"
+        {
+            float2 ui:nodegraph:node:size = (109, 145)
+        }
 
-            over "BaseColor"
-            {
-                float2 ui:nodegraph:node:size = (158.5, 235)
-            }
+        over "Swizzle"
+        {
+            float2 ui:nodegraph:node:size = (133.5, 40)
+        }
 
-            over "Roughness"
-            {
-                float2 ui:nodegraph:node:size = (158.5, 235)
-            }
+        over "Swizzle_1"
+        {
+            float2 ui:nodegraph:node:size = (145.5, 53)
+        }
 
-            over "Metallic"
-            {
-                float2 ui:nodegraph:node:size = (158.5, 235)
-            }
+        over "Multiply_1"
+        {
+            float2 ui:nodegraph:node:size = (60, 36)
+        }
 
-            over "Normal"
-            {
-                float2 ui:nodegraph:node:size = (158.5, 235)
-            }
+        over "BaseColor"
+        {
+            float2 ui:nodegraph:node:size = (158.5, 235)
+        }
+
+        over "Roughness"
+        {
+            float2 ui:nodegraph:node:size = (158.5, 235)
+        }
+
+        over "Metallic"
+        {
+            float2 ui:nodegraph:node:size = (158.5, 235)
+        }
+
+        over "Normal"
+        {
+            float2 ui:nodegraph:node:size = (158.5, 235)
         }
     }
 }

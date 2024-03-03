@@ -4,7 +4,7 @@
         string creator = "Reality Composer Pro Version 1.0 (409.60.6)"
     }
     defaultPrim = "Root"
-    metersPerUnit = 1
+    metersPerUnit = 2
     upAxis = "Y"
 )
 
@@ -13,7 +13,7 @@ def Xform "Root"
     def Cube "Block" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
-        references = @Materials/MaplePlywood.usdz@
+        references = None
     )
     {
         rel material:binding = </Root/Wood_Plank> (
@@ -23,6 +23,29 @@ def Xform "Root"
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (0.075, 0.015, 0.025)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (0.2, 0.2, 0.2)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                }
+            }
+        }
     }
 
     def "Wood_Plank" (
