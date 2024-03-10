@@ -121,5 +121,6 @@ class ShareModel: ObservableObject {
         groupSession = nil
         positionsToUpdate.removeAll()
         canStartSharePlay = true
+        cancellable?.cancel()
     }
 }
