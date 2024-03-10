@@ -9,8 +9,7 @@ import SwiftUI
 
 struct JengaView: View {
     @StateObject var jengaModel: JengaViewModel = .init()
-    @StateObject var shareModel: ShareModel = .init()
-
+    @EnvironmentObject var shareModel: ShareModel
     @EnvironmentObject var windowModel: WindowModel
 
     var body: some View {

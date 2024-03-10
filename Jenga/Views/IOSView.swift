@@ -6,7 +6,7 @@
 import SwiftUI
 
 struct IOSView: View {
-    @StateObject var shareModel: ShareModel = .init()
+    @EnvironmentObject var shareModel: ShareModel
     @State var text: String = ""
     @State var values: [[BlockPosition]] = []
 
@@ -43,4 +43,5 @@ struct IOSView: View {
 #Preview {
     IOSView()
         .previewDevice(PreviewDevice(rawValue: "iPhone 15"))
+        .environmentObject(ShareModel())
 }
