@@ -34,6 +34,7 @@ struct MainMenu: View {
                     } else {
                         Label("Start", systemImage: "play.fill")
                     }
+
                 })
                 if shareModel.enableSharePlay && windowModel.isJengaShown {
                     Button(action: {
@@ -52,6 +53,12 @@ struct MainMenu: View {
                         }
                     })
                 }
+                Picker("Choose an option", selection: $shareModel.preference) {
+                    ForEach(preferenceOptions, id: \.self) { option in
+                        Text(option)
+                    }
+                }
+                .pickerStyle(.segmented)
             }
             .frame(width: 360)
             .padding(36)
@@ -59,7 +66,9 @@ struct MainMenu: View {
     }
 }
 
-#Preview() {
+#Preview("Window", windowStyle: .plain) {
     MainMenu()
+        .environmentObject(ShareModel())
+        .environmentObject(WindowModel())
 }
 #endif

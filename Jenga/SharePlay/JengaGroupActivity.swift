@@ -27,24 +27,36 @@ struct BlockPosition: Codable, Equatable {
     let startLocation: Point3D
 }
 
+let preferenceOptions = [
+    "SideBySide",
+    "None",
+    "Conversational"
+]
+
 @MainActor
 class ShareModel: ObservableObject {
     let activity = JengaGroupActivity(position: 0)
     
     var groupSession: GroupSession<JengaGroupActivity>?
+    var systemCoordinatorConfig: SystemCoordinator.Configuration?
     private let groupStateObserver = GroupStateObserver()
-    private var cancellable: AnyCancellable?
+    private var subs: Set<AnyCancellable> = []
     @Published var positionsToUpdate = [BlockPosition]()
     @Published var canStartSharePlay: Bool = true
     @Published var enableSharePlay: Bool = true
+    @Published var preference: String = "SideBySide"
     
     var messenger: GroupSessionMessenger?
     private var tasks = Set<Task<Void, Never>>()
     
     init() {
-        cancellable = groupStateObserver.$isEligibleForGroupSession.sink { [weak self] value in
+        groupStateObserver.$isEligibleForGroupSession.sink { [weak self] value in
             self?.enableSharePlay = value
-        }
+        }.store(in: &subs)
+        $preference.sink { [weak self] newValue in
+            self?.updateTemplateReference(newValue: newValue)
+        }.store(in: &subs)
+        
         Task {
             for await session in JengaGroupActivity.sessions() {
                 #if os(visionOS)
@@ -52,9 +64,19 @@ class ShareModel: ObservableObject {
                 let isLocal = systemCoordinator.localParticipantState.isSpatial
                 if isLocal {
                     var configuration = SystemCoordinator.Configuration()
-                    configuration.spatialTemplatePreference = .sideBySide
+                    switch preference {
+                        case "SideBySide":
+                            configuration.spatialTemplatePreference = .sideBySide
+                        case "None":
+                            configuration.spatialTemplatePreference = .none
+                        case "Conversational":
+                            configuration.spatialTemplatePreference = .conversational
+                        default:
+                            print("not right")
+                    }
                     configuration.supportsGroupImmersiveSpace = true
                     systemCoordinator.configuration = configuration
+                    systemCoordinatorConfig = configuration
                 }
                 #endif
                 
@@ -73,6 +95,20 @@ class ShareModel: ObservableObject {
                 self.groupSession = session
                 canStartSharePlay = false
             }
+        }
+    }
+    
+    func updateTemplateReference(newValue: String) {
+        switch newValue {
+        case "SideBySide":
+            systemCoordinatorConfig?.spatialTemplatePreference = .sideBySide
+        case "None":
+            systemCoordinatorConfig?.spatialTemplatePreference = .none
+        case "Conversational":
+            systemCoordinatorConfig?.spatialTemplatePreference = .conversational
+        default:
+            // do nothing
+            print("not right")
         }
     }
     
@@ -121,6 +157,6 @@ class ShareModel: ObservableObject {
         groupSession = nil
         positionsToUpdate.removeAll()
         canStartSharePlay = true
-        cancellable?.cancel()
+        subs.removeAll()
     }
 }
