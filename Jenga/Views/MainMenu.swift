@@ -52,13 +52,13 @@ struct MainMenu: View {
                             Label("Stop Share Play", systemImage: "xmark")
                         }
                     })
-                }
-                Picker("Choose an option", selection: $shareModel.preference) {
-                    ForEach(preferenceOptions, id: \.self) { option in
-                        Text(option)
+                    Picker("Choose an option", selection: $shareModel.preference) {
+                        ForEach(preferenceOptions, id: \.self) { option in
+                            Text(option)
+                        }
                     }
+                    .pickerStyle(.segmented)
                 }
-                .pickerStyle(.segmented)
             }
             .frame(width: 360)
             .padding(36)
