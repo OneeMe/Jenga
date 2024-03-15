@@ -38,7 +38,9 @@ class ShareModel: ObservableObject {
     let activity = JengaGroupActivity(position: 0)
     
     var groupSession: GroupSession<JengaGroupActivity>?
-    var systemCoordinatorConfig: SystemCoordinator.Configuration?
+    #if os(visionOS)
+        var systemCoordinatorConfig: SystemCoordinator.Configuration?
+    #endif
     private let groupStateObserver = GroupStateObserver()
     private var subs: Set<AnyCancellable> = []
     @Published var positionsToUpdate = [BlockPosition]()
@@ -50,21 +52,24 @@ class ShareModel: ObservableObject {
     private var tasks = Set<Task<Void, Never>>()
     
     init() {
+        print("hey, we have created the share model")
         groupStateObserver.$isEligibleForGroupSession.sink { [weak self] value in
             self?.enableSharePlay = value
         }.store(in: &subs)
-        $preference.sink { [weak self] newValue in
-            self?.updateTemplateReference(newValue: newValue)
-        }.store(in: &subs)
+        #if os(visionOS)
+            $preference.sink { [weak self] newValue in
+                self?.updateTemplateReference(newValue: newValue)
+            }.store(in: &subs)
+        #endif
         
         Task {
             for await session in JengaGroupActivity.sessions() {
                 #if os(visionOS)
-                guard let systemCoordinator = await session.systemCoordinator else { continue }
-                let isLocal = systemCoordinator.localParticipantState.isSpatial
-                if isLocal {
-                    var configuration = SystemCoordinator.Configuration()
-                    switch preference {
+                    guard let systemCoordinator = await session.systemCoordinator else { continue }
+                    let isLocal = systemCoordinator.localParticipantState.isSpatial
+                    if isLocal {
+                        var configuration = SystemCoordinator.Configuration()
+                        switch preference {
                         case "SideBySide":
                             configuration.spatialTemplatePreference = .sideBySide
                         case "None":
@@ -73,17 +78,19 @@ class ShareModel: ObservableObject {
                             configuration.spatialTemplatePreference = .conversational
                         default:
                             print("not right")
+                        }
+                        configuration.supportsGroupImmersiveSpace = true
+                        systemCoordinator.configuration = configuration
+                        systemCoordinatorConfig = configuration
                     }
-                    configuration.supportsGroupImmersiveSpace = true
-                    systemCoordinator.configuration = configuration
-                    systemCoordinatorConfig = configuration
-                }
                 #endif
                 
                 let messenger = GroupSessionMessenger(session: session)
+                print("hey, we have created the messenger")
                 
                 let task = Task.detached { [weak self] in
                     for await (blockPosition, _) in messenger.messages(of: BlockPosition.self) {
+                        print("hey, we have received the message")
                         await self?.handlePosition(position: blockPosition) // custom func to handle the received message. See below.
                     }
                 }
@@ -97,20 +104,22 @@ class ShareModel: ObservableObject {
             }
         }
     }
-    
-    func updateTemplateReference(newValue: String) {
-        switch newValue {
-        case "SideBySide":
-            systemCoordinatorConfig?.spatialTemplatePreference = .sideBySide
-        case "None":
-            systemCoordinatorConfig?.spatialTemplatePreference = .none
-        case "Conversational":
-            systemCoordinatorConfig?.spatialTemplatePreference = .conversational
-        default:
-            // do nothing
-            print("not right")
+
+    #if os(visionOS)
+        func updateTemplateReference(newValue: String) {
+            switch newValue {
+            case "SideBySide":
+                systemCoordinatorConfig?.spatialTemplatePreference = .sideBySide
+            case "None":
+                systemCoordinatorConfig?.spatialTemplatePreference = .none
+            case "Conversational":
+                systemCoordinatorConfig?.spatialTemplatePreference = .conversational
+            default:
+                // do nothing
+                print("not right")
+            }
         }
-    }
+    #endif
     
     func handlePosition(position: BlockPosition) {
         positionsToUpdate.append(position)
