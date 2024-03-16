@@ -8,18 +8,20 @@ import SwiftUI
 struct IOSView: View {
     @EnvironmentObject var shareModel: ShareModel
     @State var text: String = ""
-    @State var values: [[BlockPosition]] = []
+    @State var values: [BlockPosition] = []
 
     var body: some View {
         VStack {
-            Button("Dump") {
-                // print values as json string
-                do {
-                    let data = try JSONSerialization.data(withJSONObject: values, options: .prettyPrinted)
-                    let jsonString = String(data: data, encoding: .utf8)
-                    print(jsonString ?? "nil")
-                } catch {
-                    print("error")
+            Button("Start SharePlay") {
+                Task {
+                    await shareModel.prepareSession()
+                }
+            }
+            Button("Callback") {
+                // get first of values
+                if let first = values.first {
+                    shareModel.send(position: first)
+                    values.removeFirst()
                 }
             }
             Image(systemName: "globe")
@@ -34,7 +36,7 @@ struct IOSView: View {
             }
             // convert new value to json string
             text = newValue.map { "index: \($0.index), position: \($0.position.description)" }.joined(separator: "\n\n")
-            values.append(newValue)
+            values.append(contentsOf: newValue)
             shareModel.positionsToUpdate.removeAll()
         }
     }
