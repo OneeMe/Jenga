@@ -34,9 +34,8 @@ struct IOSView: View {
             if newValue.isEmpty {
                 return
             }
-            // convert new value to json string
-            text = newValue.map { "index: \($0.index), position: \($0.position.description)" }.joined(separator: "\n\n")
             values.append(contentsOf: newValue)
+            text = "current values count are \(values.count)"
             shareModel.positionsToUpdate.removeAll()
         }
     }

@@ -8,16 +8,24 @@ import Foundation
 import GroupActivities
 import RealityKit
 import Spatial
+import CoreTransferable
 
 struct JengaGroupActivity: GroupActivity {
-    let position: Int
-    
     var metadata: GroupActivityMetadata {
         var metaData = GroupActivityMetadata()
         metaData.type = .generic
         metaData.title = "PlayToghter"
         metaData.sceneAssociationBehavior = .content(JengaGroupActivity.activityIdentifier)
         return metaData
+    }
+}
+
+struct JengaTransferable : Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        // Specify the associated SharePlay activity.
+        GroupActivityTransferRepresentation { _ in
+            JengaGroupActivity()
+        }
     }
 }
 
@@ -35,7 +43,7 @@ let preferenceOptions = [
 
 @MainActor
 class ShareModel: ObservableObject {
-    let activity = JengaGroupActivity(position: 0)
+    let activity = JengaGroupActivity()
     
     var groupSession: GroupSession<JengaGroupActivity>?
     #if os(visionOS)
@@ -66,8 +74,8 @@ class ShareModel: ObservableObject {
             for await session in JengaGroupActivity.sessions() {
                 #if os(visionOS)
                     guard let systemCoordinator = await session.systemCoordinator else { continue }
-                    let isLocal = systemCoordinator.localParticipantState.isSpatial
-                    if isLocal {
+                    let isSpatial = systemCoordinator.localParticipantState.isSpatial
+                    if isSpatial {
                         var configuration = SystemCoordinator.Configuration()
                         switch preference {
                         case "SideBySide":
@@ -84,6 +92,7 @@ class ShareModel: ObservableObject {
                         systemCoordinatorConfig = configuration
                     }
                 #endif
+                
                 
                 let messenger = GroupSessionMessenger(session: session)
                 print("hey, we have created the messenger")
@@ -146,6 +155,7 @@ class ShareModel: ObservableObject {
             print("Activation is disabled")
         case .activationPreferred:
             do {
+                print("Activation is preferred")
                 _ = try await activity.activate()
             } catch {
                 print("Unable to activate the activity: \(error)")

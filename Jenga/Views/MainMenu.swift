@@ -16,6 +16,7 @@ struct MainMenu: View {
 
     var body: some View {
         VStack {
+            ShareLink(item: JengaTransferable(), preview: .init("Let's Play Together"))
             VStack(spacing: 12) {
                 Text("Jenga!")
                     .font(.largeTitle)
@@ -34,7 +35,6 @@ struct MainMenu: View {
                     } else {
                         Label("Start", systemImage: "play.fill")
                     }
-
                 })
                 if shareModel.enableSharePlay && windowModel.isJengaShown {
                     Button(action: {
