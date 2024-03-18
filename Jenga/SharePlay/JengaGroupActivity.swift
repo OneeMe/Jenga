@@ -4,11 +4,11 @@
 //
 
 import Combine
+import CoreTransferable
 import Foundation
 import GroupActivities
 import RealityKit
 import Spatial
-import CoreTransferable
 
 struct JengaGroupActivity: GroupActivity {
     var metadata: GroupActivityMetadata {
@@ -20,7 +20,7 @@ struct JengaGroupActivity: GroupActivity {
     }
 }
 
-struct JengaTransferable : Transferable {
+struct JengaTransferable: Transferable {
     static var transferRepresentation: some TransferRepresentation {
         // Specify the associated SharePlay activity.
         GroupActivityTransferRepresentation { _ in
@@ -75,6 +75,7 @@ class ShareModel: ObservableObject {
                 #if os(visionOS)
                     guard let systemCoordinator = await session.systemCoordinator else { continue }
                     let isSpatial = systemCoordinator.localParticipantState.isSpatial
+                    print("hey, isSpatial is \(isSpatial)")
                     if isSpatial {
                         var configuration = SystemCoordinator.Configuration()
                         switch preference {
@@ -92,7 +93,6 @@ class ShareModel: ObservableObject {
                         systemCoordinatorConfig = configuration
                     }
                 #endif
-                
                 
                 let messenger = GroupSessionMessenger(session: session)
                 print("hey, we have created the messenger")
